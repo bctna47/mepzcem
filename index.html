@@ -8,26 +8,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
-:root {
-  --obsidian: #08090C;
-  --deep: #0C0E13;
-  --navy: #111827;
-  --gold: #C9A84C;
-  --gold-l: #E8C97A;
-  --gold-pale: #F5E6B8;
-  --silver: #8892A4;
-  --white: #F0EDE8;
-  --white-dim: rgba(240,237,232,0.62);
-  --ghost: rgba(240,237,232,0.07);
-  --border: rgba(201,168,76,0.18);
-  --border-f: rgba(201,168,76,0.08);
-  --ease: cubic-bezier(.4,0,.2,1);
+:root{
+  --obs:#08090C;--deep:#0C0E13;
+  --gold:#C9A84C;--gold-l:#E8C97A;
+  --silver:#8892A4;--white:#F0EDE8;
+  --dim:rgba(240,237,232,.62);--ghost:rgba(240,237,232,.07);
+  --border:rgba(201,168,76,.18);--bf:rgba(201,168,76,.08);
+  --ease:cubic-bezier(.4,0,.2,1);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--obsidian);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
-
-/* NOISE */
+body{background:var(--obs);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
 body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.025;pointer-events:none;z-index:1000}
 
 /* CURSOR */
@@ -35,314 +26,341 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(201,168,76,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .18s ease-out}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:900;padding:28px 64px;display:flex;align-items:center;justify-content:space-between;transition:all .4s}
-nav.scrolled{background:rgba(8,9,12,.92);backdrop-filter:blur(20px);padding:16px 64px;border-bottom:1px solid var(--border-f)}
-.nav-logo{text-decoration:none;display:flex;flex-direction:column;gap:2px}
-.nav-logo-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;letter-spacing:.12em;color:var(--gold)}
-.nav-logo-sub{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.28em;color:var(--silver);text-transform:uppercase}
-.nav-links{display:flex;gap:36px;list-style:none;align-items:center}
-.nav-links a{color:var(--white-dim);text-decoration:none;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;font-weight:400;transition:color .3s;position:relative;cursor:none}
+nav{position:fixed;top:0;left:0;right:0;z-index:900;padding:22px 64px;display:flex;align-items:center;justify-content:space-between;transition:all .4s}
+nav.scrolled{background:rgba(8,9,12,.94);backdrop-filter:blur(24px);padding:13px 64px;border-bottom:1px solid var(--bf)}
+.nav-logo{text-decoration:none;display:flex;align-items:center;gap:14px;cursor:none}
+.nav-logo-img{height:36px;width:auto;filter:brightness(0) invert(1);opacity:.9;transition:opacity .3s}
+.nav-logo:hover .nav-logo-img{opacity:1}
+.nav-divider{width:1px;height:26px;background:var(--border)}
+.nav-text{display:flex;flex-direction:column;gap:1px}
+.nav-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;letter-spacing:.14em;color:var(--gold);line-height:1}
+.nav-sub{font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:.28em;color:var(--silver);text-transform:uppercase}
+.nav-links{display:flex;gap:32px;list-style:none;align-items:center}
+.nav-links a{color:var(--dim);text-decoration:none;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:400;transition:color .3s;position:relative;cursor:none}
 .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
 .nav-links a:hover,.nav-links a.active{color:var(--gold)}
 .nav-links a:hover::after,.nav-links a.active::after{width:100%}
-.nav-cta{padding:9px 26px!important;border:1px solid var(--gold)!important;color:var(--gold)!important;font-weight:500!important}
+.nav-cta{padding:8px 22px!important;border:1px solid var(--gold)!important;color:var(--gold)!important;font-weight:500!important}
 .nav-cta::after{display:none!important}
-.nav-cta:hover{background:var(--gold)!important;color:var(--obsidian)!important}
-.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:none;padding:4px}
-.nav-hamburger span{display:block;width:22px;height:1px;background:var(--white);transition:all .3s}
-.nav-mobile{display:none;position:fixed;inset:0;background:var(--obsidian);z-index:800;flex-direction:column;justify-content:center;align-items:center;gap:40px}
-.nav-mobile.open{display:flex}
-.nav-mobile a{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--white-dim);text-decoration:none;letter-spacing:.05em;transition:color .3s;cursor:none}
-.nav-mobile a:hover{color:var(--gold)}
+.nav-cta:hover{background:var(--gold)!important;color:var(--obs)!important}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:none;padding:4px}
+.hbg span{display:block;width:22px;height:1px;background:var(--white);transition:all .3s}
+.mob-nav{display:none;position:fixed;inset:0;background:var(--obs);z-index:800;flex-direction:column;justify-content:center;align-items:center;gap:36px}
+.mob-nav.open{display:flex}
+.mob-nav a{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;color:var(--dim);text-decoration:none;letter-spacing:.05em;transition:color .3s;cursor:none}
+.mob-nav a:hover{color:var(--gold)}
 
 /* PAGE SYSTEM */
 .page{display:none;min-height:100vh}
 .page.active{display:block}
-
-/* PAGE TRANSITION */
-.page-enter{animation:pageIn .5s var(--ease) forwards}
-@keyframes pageIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-
-/* ===== HOME ===== */
-.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:0 64px}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.04) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%)}
-.hero-glow{position:absolute;width:900px;height:900px;background:radial-gradient(circle,rgba(201,168,76,.07) 0%,transparent 65%);top:-200px;right:-200px;pointer-events:none}
-.hero-glow2{position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(59,130,246,.05) 0%,transparent 70%);bottom:-100px;left:-100px;pointer-events:none}
-.hero-vline{position:absolute;top:0;right:34%;width:1px;height:100%;background:linear-gradient(to bottom,transparent,rgba(201,168,76,.25) 40%,rgba(201,168,76,.1) 70%,transparent);transform:rotate(7deg) translateX(60px)}
-.hero-content{position:relative;z-index:2;max-width:980px;padding-top:100px}
-.hero-badge{display:inline-flex;align-items:center;gap:10px;padding:6px 16px;border:1px solid var(--border);margin-bottom:40px;background:rgba(201,168,76,.04);opacity:0;animation:fadeUp .8s .2s forwards}
-.hero-badge-dot{width:5px;height:5px;background:var(--gold);border-radius:50%;animation:blink 2s infinite}
-@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
-.hero-badge span{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
-.hero-eye{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.4em;text-transform:uppercase;color:var(--silver);margin-bottom:24px;opacity:0;animation:fadeUp .8s .4s forwards}
-.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,8vw,110px);font-weight:300;line-height:1.0;margin-bottom:16px;opacity:0;animation:fadeUp .9s .5s forwards}
-.hero-title em{font-style:italic;color:var(--gold)}
-.hero-title .ot{-webkit-text-stroke:1px rgba(201,168,76,.35);color:transparent}
-.hero-sub{font-size:14px;line-height:1.9;color:var(--white-dim);max-width:520px;margin:30px 0 48px;opacity:0;animation:fadeUp .8s .7s forwards}
-.hero-btns{display:flex;gap:20px;align-items:center;opacity:0;animation:fadeUp .8s .9s forwards}
-.hero-stats{position:absolute;bottom:60px;right:64px;display:flex;gap:56px;opacity:0;animation:fadeUp .8s 1.1s forwards}
-.hstat-num{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:300;line-height:1}
-.hstat-num span{color:var(--gold);font-size:26px}
-.hstat-lbl{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--silver);margin-top:6px;text-align:right}
-.scroll-ind{position:absolute;bottom:40px;left:64px;display:flex;flex-direction:column;align-items:center;gap:12px;opacity:0;animation:fadeUp .8s 1.3s forwards}
-.scroll-ind span{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--silver);writing-mode:vertical-rl}
-.scroll-line{width:1px;height:60px;background:linear-gradient(to bottom,var(--gold),transparent);animation:sline 2s infinite}
-@keyframes sline{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}50.01%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
-
-/* MARQUEE */
-.marquee-wrap{border-top:1px solid var(--border-f);border-bottom:1px solid var(--border-f);padding:18px 0;overflow:hidden;background:rgba(201,168,76,.02)}
-.marquee-track{display:flex;animation:ticker 28s linear infinite;white-space:nowrap}
-.mq-item{display:inline-flex;align-items:center;gap:22px;padding:0 36px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--silver)}
-.mq-dot{color:var(--gold);font-size:14px}
-@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-
-/* SECTION BASE */
-.sec{padding:130px 64px;position:relative}
-.sec-inner{max-width:1280px;margin:0 auto}
-.sec-lbl{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;display:flex;align-items:center;gap:14px}
-.sec-lbl::before{content:'';width:36px;height:1px;background:var(--gold)}
-.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,5vw,70px);font-weight:300;line-height:1.1;margin-bottom:32px}
-.sec-title em{font-style:italic;color:var(--gold)}
+.page-enter{animation:pgIn .5s var(--ease) forwards}
+@keyframes pgIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
 /* BTNS */
-.btn-p{display:inline-block;padding:15px 38px;background:var(--gold);color:var(--obsidian);text-decoration:none;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:500;transition:all .3s;position:relative;overflow:hidden;cursor:none}
+.btn-p{display:inline-block;padding:13px 34px;background:var(--gold);color:var(--obs);text-decoration:none;font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:500;transition:all .3s;position:relative;overflow:hidden;cursor:none}
 .btn-p::before{content:'';position:absolute;inset:0;background:var(--gold-l);transform:translateX(-100%);transition:transform .3s}
 .btn-p:hover::before{transform:translateX(0)}
 .btn-p span{position:relative;z-index:1}
-.btn-s{display:inline-block;padding:15px 38px;border:1px solid rgba(240,237,232,.2);color:var(--white-dim);text-decoration:none;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:400;transition:all .3s;cursor:none}
+.btn-s{display:inline-block;padding:13px 34px;border:1px solid rgba(240,237,232,.2);color:var(--dim);text-decoration:none;font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:400;transition:all .3s;cursor:none}
 .btn-s:hover{border-color:var(--gold);color:var(--gold)}
 
-/* ABOUT (HOME) */
-.about-2col{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center}
-.about-text p{color:var(--white-dim);font-size:14px;line-height:2.0;margin-bottom:20px}
-.about-card{background:var(--ghost);border:1px solid var(--border);padding:56px 48px;position:relative;overflow:hidden}
-.about-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.about-card-yr{font-family:'Cormorant Garamond',serif;font-size:110px;font-weight:300;color:rgba(201,168,76,.07);position:absolute;top:10px;right:16px;line-height:1;pointer-events:none}
-.about-card-body{position:relative;z-index:1}
-.about-card-body h3{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;margin-bottom:14px}
-.about-card-body p{font-size:13px;line-height:1.95;color:var(--white-dim)}
-.about-divider{width:40px;height:1px;background:var(--gold);margin:22px 0}
-.about-tag{display:inline-flex;padding:5px 14px;border:1px solid var(--border);font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-top:28px}
-
-/* PILLARS */
-.pillars-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border-f);border:1px solid var(--border-f);margin-top:64px}
-.pillar{padding:44px 36px;background:var(--obsidian);transition:background .4s;position:relative;overflow:hidden}
-.pillar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .4s}
-.pillar:hover{background:rgba(201,168,76,.04)}
-.pillar:hover::after{transform:scaleX(1)}
-.pillar-icon{font-size:28px;margin-bottom:20px}
-.pillar-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;margin-bottom:12px;color:var(--white)}
-.pillar-desc{font-size:13px;line-height:1.85;color:var(--white-dim)}
-
-/* STATS GRID */
-.stats-bg{background:var(--deep);border-top:1px solid var(--border-f);border-bottom:1px solid var(--border-f)}
-.stats-4{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:64px}
-.stat-c{padding:48px 36px;border:1px solid var(--border-f);background:rgba(201,168,76,.02);transition:background .4s;position:relative;overflow:hidden}
-.stat-c::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .4s}
-.stat-c:hover{background:rgba(201,168,76,.05)}
-.stat-c:hover::after{transform:scaleX(1)}
-.stat-n{font-family:'Cormorant Garamond',serif;font-size:62px;font-weight:300;line-height:1;margin-bottom:10px}
-.stat-n sup{font-size:28px;color:var(--gold);vertical-align:super}
-.stat-l{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--silver)}
-
-/* ASSOC GRID */
-.assoc-7{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--border-f);border:1px solid var(--border-f);margin-top:24px}
-.assoc-c{padding:36px 12px;background:var(--obsidian);display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;transition:background .3s;min-height:130px;justify-content:center}
-.assoc-c:hover{background:rgba(201,168,76,.04)}
-.assoc-ico{width:46px;height:46px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--gold);font-weight:600}
-.assoc-nm{font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--silver)}
-
-/* NEWS */
-.news-3{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:1px;background:var(--border-f);border:1px solid var(--border-f)}
-.news-c{background:var(--obsidian);padding:48px 44px;display:flex;flex-direction:column;justify-content:space-between;min-height:380px;transition:background .4s;position:relative;overflow:hidden}
-.news-c::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--gold),transparent);opacity:0;transition:opacity .4s}
-.news-c:hover{background:rgba(201,168,76,.03)}
-.news-c:hover::before{opacity:1}
-.news-c.feat{background:rgba(201,168,76,.04)}
-.news-tag{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
-.news-ttl{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;line-height:1.38;flex:1;margin-bottom:24px;color:var(--white)}
-.news-c.feat .news-ttl{font-size:32px}
-.news-meta{display:flex;align-items:center;justify-content:space-between}
-.news-date{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.18em;color:var(--silver)}
-.news-arr{width:30px;height:30px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:13px;transition:all .3s;text-decoration:none;cursor:none}
-.news-c:hover .news-arr{background:var(--gold);color:var(--obsidian);border-color:var(--gold)}
-
-/* CTA */
-.cta-sec{padding:160px 64px;text-align:center;position:relative;overflow:hidden}
-.cta-glow{position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(201,168,76,.06) 0%,transparent 70%);pointer-events:none}
-.cta-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.025) 1px,transparent 1px);background-size:60px 60px}
-.cta-body{position:relative;z-index:2}
-.cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,7vw,92px);font-weight:300;line-height:1.05;max-width:780px;margin:0 auto 36px}
-.cta-title em{font-style:italic;color:var(--gold)}
-.cta-sub{font-size:14px;color:var(--white-dim);max-width:460px;margin:0 auto 56px;line-height:1.95}
-.cta-row{display:flex;gap:20px;justify-content:center}
-.cta-info{margin-top:56px;display:flex;gap:48px;justify-content:center}
-.cta-inf-item{text-align:center}
-.cta-inf-lbl{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.25em;color:var(--silver);text-transform:uppercase;margin-bottom:8px}
-.cta-inf-val{font-size:13px;color:var(--white-dim)}
-.cta-inf-val a{color:var(--white-dim);text-decoration:none;transition:color .3s;cursor:none}
-.cta-inf-val a:hover{color:var(--gold)}
-.cta-vdiv{width:1px;background:var(--border-f)}
-
-/* ===== ABOUT PAGE ===== */
-.page-hero{min-height:55vh;display:flex;align-items:flex-end;padding:0 64px 80px;position:relative;overflow:hidden;background:linear-gradient(to bottom,var(--obsidian) 0%,var(--deep) 100%)}
-.page-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.035) 1px,transparent 1px);background-size:80px 80px;mask-image:linear-gradient(to bottom,transparent 0%,black 40%,black 80%,transparent 100%)}
-.page-hero-glow{position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 65%);top:-200px;right:-100px;pointer-events:none}
-.page-hero-content{position:relative;z-index:2;padding-top:130px}
-.page-hero-eye{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:14px}
-.page-hero-eye::before{content:'';width:36px;height:1px;background:var(--gold)}
-.page-hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,7vw,100px);font-weight:300;line-height:1.0}
-.page-hero-title em{font-style:italic;color:var(--gold)}
-
-/* ABOUT CONTENT */
-.about-intro{display:grid;grid-template-columns:1fr 1.2fr;gap:100px;align-items:start;margin-bottom:100px}
-.about-intro-lede{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;line-height:1.55;color:var(--white);margin-bottom:24px}
-.about-intro-body{font-size:14px;line-height:2.0;color:var(--white-dim)}
-.about-intro-body p{margin-bottom:18px}
-
-/* VISION MISSION */
-.vm-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border-f);border:1px solid var(--border-f)}
-.vm-card{background:var(--obsidian);padding:60px 56px;position:relative;overflow:hidden}
-.vm-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent)}
-.vm-card-label{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);margin-bottom:24px}
-.vm-card-title{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;margin-bottom:24px;color:var(--white)}
-.vm-card-body{font-size:13.5px;line-height:2.0;color:var(--white-dim)}
-
-/* PILLARS ABOUT PAGE */
-.pillars-about{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border-f);border:1px solid var(--border-f);margin-top:0}
-.pillar-a{padding:50px 40px;background:var(--obsidian);transition:background .4s;position:relative;overflow:hidden;border-left:0}
-.pillar-a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .4s}
-.pillar-a:hover{background:rgba(201,168,76,.04)}
-.pillar-a:hover::after{transform:scaleX(1)}
-.pillar-a-num{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:300;color:rgba(201,168,76,.1);line-height:1;margin-bottom:16px}
-.pillar-a-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--white);margin-bottom:14px}
-.pillar-a-body{font-size:13px;line-height:1.9;color:var(--white-dim)}
-
-/* ===== OFFICERS PAGE ===== */
-.officers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-f);border:1px solid var(--border-f)}
-.officer-c{background:var(--obsidian);padding:48px 40px;transition:background .4s;position:relative;overflow:hidden}
-.officer-c::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .4s}
-.officer-c:hover{background:rgba(201,168,76,.04)}
-.officer-c:hover::after{transform:scaleX(1)}
-.officer-c.featured{grid-column:span 1;background:rgba(201,168,76,.04)}
-.officer-c.featured::after{transform:scaleX(1)}
-.officer-avatar{width:72px;height:72px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);margin-bottom:24px;background:rgba(201,168,76,.06)}
-.officer-role{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
-.officer-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:var(--white);margin-bottom:8px}
-.officer-sector{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--silver);margin-bottom:14px}
-.officer-company{font-size:13px;color:var(--white-dim);line-height:1.6}
-.officer-divider{width:32px;height:1px;background:var(--border);margin:16px 0}
-
-.officers-exec{background:var(--deep);border-top:1px solid var(--border-f);border-bottom:1px solid var(--border-f);padding:80px 64px;margin-top:0}
-.exec-card{display:flex;gap:60px;align-items:center;max-width:800px;margin:0 auto}
-.exec-avatar{width:100px;height:100px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--gold);flex-shrink:0;background:rgba(201,168,76,.06)}
-.exec-role{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
-.exec-name{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--white);margin-bottom:6px}
-.exec-sub{font-size:13px;color:var(--white-dim)}
-
-/* ===== ASSOCIATIONS PAGE ===== */
-.assoc-full-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border-f);border:1px solid var(--border-f)}
-.assoc-full-c{background:var(--obsidian);padding:56px 52px;transition:background .4s;position:relative;overflow:hidden}
-.assoc-full-c::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);opacity:0;transition:opacity .4s}
-.assoc-full-c:hover{background:rgba(201,168,76,.03)}
-.assoc-full-c:hover::before{opacity:1}
-.assoc-full-abbr{font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;color:rgba(201,168,76,.15);line-height:1;margin-bottom:20px}
-.assoc-full-name{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;color:var(--white);margin-bottom:12px;line-height:1.3}
-.assoc-full-body{font-size:13.5px;line-height:1.95;color:var(--white-dim)}
-.assoc-full-tag{display:inline-flex;padding:4px 12px;border:1px solid var(--border);font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-top:24px}
-
-/* ===== EVENTS PAGE ===== */
-.events-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border-f);border:1px solid var(--border-f)}
-.event-c{background:var(--obsidian);padding:48px 52px;display:grid;grid-template-columns:160px 1fr auto;gap:40px;align-items:center;transition:background .4s;position:relative;overflow:hidden;border-left:0}
-.event-c::before{content:'';position:absolute;top:0;left:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);opacity:0;transition:opacity .4s}
-.event-c:hover{background:rgba(201,168,76,.03)}
-.event-c:hover::before{opacity:1}
-.event-date-block{text-align:center}
-.event-month{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
-.event-day{font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;color:var(--white);line-height:1}
-.event-year{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.2em;color:var(--silver)}
-.event-divider{width:1px;height:60px;background:var(--border-f);margin:0 auto}
-.event-body{}
-.event-cat{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
-.event-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;color:var(--white);margin-bottom:10px;line-height:1.3}
-.event-excerpt{font-size:13px;line-height:1.85;color:var(--white-dim);max-width:600px}
-.event-arrow{width:44px;height:44px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:16px;flex-shrink:0;transition:all .3s;cursor:none}
-.event-c:hover .event-arrow{background:var(--gold);color:var(--obsidian);border-color:var(--gold)}
-
-/* ===== CONTACT PAGE ===== */
-.contact-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:80px;align-items:start}
-.contact-info-card{background:var(--ghost);border:1px solid var(--border);padding:60px 52px;position:relative;overflow:hidden}
-.contact-info-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent)}
-.contact-detail{margin-bottom:36px}
-.contact-detail-lbl{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
-.contact-detail-val{font-size:14px;line-height:1.8;color:var(--white-dim)}
-.contact-detail-val a{color:var(--white-dim);text-decoration:none;transition:color .3s;cursor:none}
-.contact-detail-val a:hover{color:var(--gold)}
-.contact-form-wrap{}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
-.form-group{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
-.form-group label{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--silver)}
-.form-group input,.form-group select,.form-group textarea{background:var(--ghost);border:1px solid var(--border-f);color:var(--white);padding:14px 18px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:300;outline:none;transition:border-color .3s;-webkit-appearance:none}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
-.form-group input::placeholder,.form-group textarea::placeholder{color:var(--silver)}
-.form-group select option{background:var(--obsidian)}
-.form-group textarea{resize:vertical;min-height:140px}
-.form-submit{display:flex;justify-content:flex-start;margin-top:8px}
-
-/* FOOTER */
-footer{background:var(--obsidian);border-top:1px solid var(--border-f);padding:80px 64px 40px}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:80px;margin-bottom:80px}
-.footer-brand-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--gold);letter-spacing:.1em;margin-bottom:6px}
-.footer-brand-tag{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.26em;color:var(--silver);text-transform:uppercase;margin-bottom:26px}
-.footer-brand-desc{font-size:13px;line-height:1.95;color:var(--white-dim);max-width:270px}
-.footer-col-title{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:26px}
-.footer-links{list-style:none;display:flex;flex-direction:column;gap:13px}
-.footer-links a{color:var(--silver);text-decoration:none;font-size:13px;transition:color .3s;cursor:none}
-.footer-links a:hover{color:var(--white)}
-.footer-contact-item{font-size:13px;color:var(--white-dim);margin-bottom:12px;line-height:1.65}
-.footer-contact-item a{color:var(--white-dim);text-decoration:none;transition:color .3s;cursor:none}
-.footer-contact-item a:hover{color:var(--gold)}
-.footer-bottom{border-top:1px solid var(--border-f);padding-top:30px;display:flex;align-items:center;justify-content:space-between}
-.footer-copy{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.18em;color:var(--silver);text-transform:uppercase}
-.footer-legal{display:flex;gap:30px}
-.footer-legal a{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver);text-decoration:none;transition:color .3s;cursor:none}
-.footer-legal a:hover{color:var(--gold)}
+/* SECTION */
+.sec{padding:110px 64px}
+.si{max-width:1280px;margin:0 auto}
+.lbl{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.lbl::before{content:'';width:32px;height:1px;background:var(--gold)}
+.h2{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,4.5vw,64px);font-weight:300;line-height:1.1;margin-bottom:28px}
+.h2 em{font-style:italic;color:var(--gold)}
 
 /* REVEAL */
-.rv{opacity:0;transform:translateY(36px);transition:opacity .8s,transform .8s}
+.rv{opacity:0;transform:translateY(30px);transition:opacity .8s,transform .8s}
 .rv.vis{opacity:1;transform:translateY(0)}
 .rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}.rv.d4{transition-delay:.4s}
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:0 64px}
+.hero-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.04) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%)}
+.hero-glow{position:absolute;width:900px;height:900px;background:radial-gradient(circle,rgba(201,168,76,.07) 0%,transparent 65%);top:-200px;right:-150px;pointer-events:none}
+.hero-glow2{position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(59,130,246,.05) 0%,transparent 70%);bottom:-100px;left:-100px;pointer-events:none}
+.hero-vline{position:absolute;top:0;right:34%;width:1px;height:100%;background:linear-gradient(to bottom,transparent,rgba(201,168,76,.22) 40%,rgba(201,168,76,.08) 75%,transparent);transform:rotate(7deg) translateX(60px)}
+.hero-content{position:relative;z-index:2;max-width:960px;padding-top:100px}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;padding:6px 16px;border:1px solid var(--border);margin-bottom:36px;background:rgba(201,168,76,.04);opacity:0;animation:fuA .8s .2s forwards}
+.hero-dot{width:5px;height:5px;background:var(--gold);border-radius:50%;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
+.hero-badge span{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.hero-eye{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--silver);margin-bottom:20px;opacity:0;animation:fuA .8s .4s forwards}
+h1.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,8vw,106px);font-weight:300;line-height:1.0;margin-bottom:14px;opacity:0;animation:fuA .9s .5s forwards}
+h1.hero-title em{font-style:italic;color:var(--gold)}
+h1.hero-title .ot{-webkit-text-stroke:1px rgba(201,168,76,.32);color:transparent}
+.hero-sub{font-size:14px;line-height:1.95;color:var(--dim);max-width:500px;margin:26px 0 44px;opacity:0;animation:fuA .8s .7s forwards}
+.hero-btns{display:flex;gap:16px;align-items:center;opacity:0;animation:fuA .8s .9s forwards;flex-wrap:wrap}
+/* Logo watermark right side */
+.hero-watermark{position:absolute;right:64px;top:50%;transform:translateY(-50%);width:300px;pointer-events:none;opacity:0;animation:fuA 1s .6s forwards}
+.hero-watermark img{width:100%;filter:brightness(0) invert(1);opacity:.055}
+.hero-stats{position:absolute;bottom:52px;right:64px;display:flex;gap:50px;opacity:0;animation:fuA .8s 1.1s forwards}
+.hs-n{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:300;line-height:1}
+.hs-n span{color:var(--gold);font-size:24px}
+.hs-l{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.3em;text-transform:uppercase;color:var(--silver);margin-top:5px;text-align:right}
+.scroll-ind{position:absolute;bottom:36px;left:64px;display:flex;flex-direction:column;align-items:center;gap:12px;opacity:0;animation:fuA .8s 1.3s forwards}
+.scroll-ind span{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--silver);writing-mode:vertical-rl}
+.scroll-line{width:1px;height:52px;background:linear-gradient(to bottom,var(--gold),transparent);animation:sline 2s infinite}
+@keyframes sline{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}50.01%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@keyframes fuA{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+
+/* MARQUEE */
+.mq{border-top:1px solid var(--bf);border-bottom:1px solid var(--bf);padding:17px 0;overflow:hidden;background:rgba(201,168,76,.02)}
+.mq-track{display:flex;animation:ticker 30s linear infinite;white-space:nowrap}
+.mq-item{display:inline-flex;align-items:center;gap:20px;padding:0 32px;font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--silver)}
+.mq-dot{color:var(--gold);font-size:12px}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* VIDEO */
+.vid-sec{padding:0 64px 100px}
+.vid-inner{max-width:1280px;margin:0 auto}
+.vid-wrap{position:relative;display:block;cursor:none;overflow:hidden;border:1px solid var(--border)}
+.vid-wrap img{width:100%;display:block;transition:transform .6s var(--ease);filter:brightness(.65)}
+.vid-wrap:hover img{transform:scale(1.03);filter:brightness(.8)}
+.vid-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:76px;height:76px;border:2px solid rgba(240,237,232,.6);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .3s;background:rgba(8,9,12,.4);backdrop-filter:blur(8px)}
+.vid-play::after{content:'';border-left:20px solid var(--white);border-top:12px solid transparent;border-bottom:12px solid transparent;margin-left:5px}
+.vid-wrap:hover .vid-play{background:var(--gold);border-color:var(--gold)}
+.vid-wrap:hover .vid-play::after{border-left-color:var(--obs)}
+.vid-label{position:absolute;bottom:22px;left:26px;font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;color:rgba(240,237,232,.7)}
+
+/* ABOUT CARD */
+.about-2col{display:grid;grid-template-columns:1fr 1fr;gap:88px;align-items:center}
+.about-text p{color:var(--dim);font-size:14px;line-height:2.0;margin-bottom:16px}
+.acard{background:var(--ghost);border:1px solid var(--border);padding:50px 44px;position:relative;overflow:hidden}
+.acard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.acard-yr{font-family:'Cormorant Garamond',serif;font-size:96px;font-weight:300;color:rgba(201,168,76,.07);position:absolute;top:8px;right:12px;line-height:1;pointer-events:none}
+.acard-body{position:relative;z-index:1}
+.acard-body h3{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;margin-bottom:12px}
+.acard-body p{font-size:13px;line-height:1.95;color:var(--dim)}
+.adiv{width:34px;height:1px;background:var(--gold);margin:18px 0}
+.atag{display:inline-flex;padding:4px 12px;border:1px solid var(--border);font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-top:22px}
+
+/* PILLARS */
+.pillars4{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bf);border:1px solid var(--bf);margin-top:56px}
+.p4{padding:42px 32px;background:var(--obs);transition:background .4s;position:relative;overflow:hidden}
+.p4::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .4s}
+.p4:hover{background:rgba(201,168,76,.04)}
+.p4:hover::after{transform:scaleX(1)}
+.p4-icon{font-size:26px;margin-bottom:16px}
+.p4-t{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:400;margin-bottom:10px;color:var(--white)}
+.p4-d{font-size:13px;line-height:1.85;color:var(--dim)}
+
+/* STATS */
+.stats-bg{background:var(--deep);border-top:1px solid var(--bf);border-bottom:1px solid var(--bf)}
+.stats-hdr{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:end;margin-bottom:60px}
+.stats4{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.sc{padding:44px 32px;border:1px solid var(--bf);background:rgba(201,168,76,.02);transition:background .4s;position:relative;overflow:hidden}
+.sc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .4s}
+.sc:hover{background:rgba(201,168,76,.05)}
+.sc:hover::after{transform:scaleX(1)}
+.sc-n{font-family:'Cormorant Garamond',serif;font-size:58px;font-weight:300;line-height:1;margin-bottom:9px}
+.sc-n sup{font-size:24px;color:var(--gold);vertical-align:super}
+.sc-l{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.3em;text-transform:uppercase;color:var(--silver)}
+
+/* ASSOC LOGOS GRID */
+.assoc-logos{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--bf);border:1px solid var(--bf);margin-top:22px}
+.al-c{padding:30px 14px;background:var(--obs);display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;transition:background .3s;min-height:124px;justify-content:center}
+.al-c:hover{background:rgba(201,168,76,.05)}
+.al-c img{width:58px;height:58px;object-fit:contain;filter:grayscale(25%);transition:filter .3s}
+.al-c:hover img{filter:grayscale(0%)}
+.al-nm{font-family:'DM Mono',monospace;font-size:6px;letter-spacing:.16em;text-transform:uppercase;color:var(--silver)}
+
+/* NEWS */
+.news3{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:1px;background:var(--bf);border:1px solid var(--bf)}
+.nc{background:var(--obs);padding:44px 40px;display:flex;flex-direction:column;justify-content:space-between;min-height:350px;transition:background .4s;position:relative;overflow:hidden}
+.nc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--gold),transparent);opacity:0;transition:opacity .4s}
+.nc:hover{background:rgba(201,168,76,.03)}
+.nc:hover::before{opacity:1}
+.nc.feat{background:rgba(201,168,76,.04)}
+.nc-tag{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+.nc-t{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:400;line-height:1.38;flex:1;margin-bottom:20px;color:var(--white)}
+.nc.feat .nc-t{font-size:29px}
+.nc-meta{display:flex;align-items:center;justify-content:space-between}
+.nc-date{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.18em;color:var(--silver)}
+.nc-arr{width:28px;height:28px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:12px;transition:all .3s;text-decoration:none;cursor:none}
+.nc:hover .nc-arr{background:var(--gold);color:var(--obs);border-color:var(--gold)}
+
+/* CTA */
+.cta{padding:140px 64px;text-align:center;position:relative;overflow:hidden}
+.cta-glow{position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(201,168,76,.06) 0%,transparent 70%);pointer-events:none}
+.cta-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.025) 1px,transparent 1px);background-size:60px 60px}
+.cta-body{position:relative;z-index:2}
+.cta-t{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,7vw,86px);font-weight:300;line-height:1.05;max-width:740px;margin:0 auto 32px}
+.cta-t em{font-style:italic;color:var(--gold)}
+.cta-s{font-size:14px;color:var(--dim);max-width:440px;margin:0 auto 50px;line-height:1.95}
+.cta-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.cta-info{margin-top:50px;display:flex;gap:42px;justify-content:center;flex-wrap:wrap;align-items:center}
+.cti{text-align:center}
+.cti-l{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.25em;color:var(--silver);text-transform:uppercase;margin-bottom:7px}
+.cti-v{font-size:13px;color:var(--dim)}
+.cti-v a{color:var(--dim);text-decoration:none;transition:color .3s;cursor:none}
+.cti-v a:hover{color:var(--gold)}
+.cti-d{width:1px;height:40px;background:var(--bf)}
+
+/* PAGE HERO */
+.pgh{min-height:50vh;display:flex;align-items:flex-end;padding:0 64px 68px;position:relative;overflow:hidden}
+.pgh-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.24) saturate(.5)}
+.pgh-ov{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,9,12,.55) 0%,rgba(8,9,12,.88) 65%,var(--obs) 100%)}
+.pgh-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.05) 1px,transparent 1px);background-size:80px 80px;mask-image:linear-gradient(to bottom,transparent,black 55%,black 85%,transparent)}
+.pgh-glow{position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(201,168,76,.07) 0%,transparent 65%);top:-200px;right:-100px;pointer-events:none}
+.pgh-content{position:relative;z-index:2;padding-top:130px}
+.pgh-eye{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;display:flex;align-items:center;gap:12px}
+.pgh-eye::before{content:'';width:32px;height:1px;background:var(--gold)}
+h1.pgh-t{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,7vw,92px);font-weight:300;line-height:1.0}
+h1.pgh-t em{font-style:italic;color:var(--gold)}
+
+/* ABOUT PAGE */
+.about-int{display:grid;grid-template-columns:1fr 1.2fr;gap:88px;align-items:start;margin-bottom:86px}
+.a-lede{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;line-height:1.55;color:var(--white);margin-bottom:20px}
+.a-body{font-size:14px;line-height:2.0;color:var(--dim)}
+.a-body p{margin-bottom:16px}
+.vm-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--bf);border:1px solid var(--bf)}
+.vm-c{background:var(--obs);padding:52px 48px;position:relative;overflow:hidden}
+.vm-c::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent)}
+.vm-lbl{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.vm-title{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;margin-bottom:20px;color:var(--white)}
+.vm-body{font-size:13px;line-height:2.0;color:var(--dim)}
+.pillars-about{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bf);border:1px solid var(--bf)}
+.pa{padding:46px 36px;background:var(--obs);transition:background .4s;position:relative;overflow:hidden}
+.pa::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .4s}
+.pa:hover{background:rgba(201,168,76,.04)}
+.pa:hover::after{transform:scaleX(1)}
+.pa-n{font-family:'Cormorant Garamond',serif;font-size:58px;font-weight:300;color:rgba(201,168,76,.1);line-height:1;margin-bottom:13px}
+.pa-t{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:400;color:var(--white);margin-bottom:11px}
+.pa-d{font-size:13px;line-height:1.9;color:var(--dim)}
+
+/* OFFICERS */
+.off-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bf);border:1px solid var(--bf)}
+.oc{background:var(--obs);padding:42px 36px;transition:background .4s;position:relative;overflow:hidden}
+.oc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .4s}
+.oc:hover{background:rgba(201,168,76,.04)}
+.oc:hover::after{transform:scaleX(1)}
+.oc.feat{background:rgba(201,168,76,.04)}
+.oc.feat::after{transform:scaleX(1)}
+.oc-photo{width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--border);margin-bottom:20px;display:block}
+.oc-role{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.oc-name{font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:400;color:var(--white);margin-bottom:6px}
+.oc-sector{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.18em;text-transform:uppercase;color:var(--silver);margin-bottom:11px}
+.oc-div{width:28px;height:1px;background:var(--border);margin:12px 0}
+.oc-co{font-size:12.5px;color:var(--dim);line-height:1.65}
+
+/* EXEC */
+.exec-strip{background:var(--deep);border-top:1px solid var(--bf);border-bottom:1px solid var(--bf);padding:68px 64px}
+.exec-inner{max-width:1280px;margin:0 auto;display:flex;gap:56px;align-items:center}
+.exec-photo{width:100px;height:100px;border-radius:50%;object-fit:cover;border:2px solid var(--border);flex-shrink:0}
+.exec-role{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.exec-name{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--white);margin-bottom:5px}
+.exec-sub{font-size:13px;color:var(--dim)}
+
+/* ASSOC OFFICER TABS */
+.ao-wrap{padding:72px 64px 0}
+.ao-inner{max-width:1280px;margin:0 auto}
+.ao-tabs{display:flex;gap:2px;margin-bottom:2px;flex-wrap:wrap}
+.ao-tab{padding:11px 22px;background:rgba(201,168,76,.04);border:1px solid var(--bf);font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--silver);cursor:none;transition:all .3s}
+.ao-tab.active,.ao-tab:hover{background:var(--gold);color:var(--obs);border-color:var(--gold)}
+.ao-panel{display:none;background:var(--ghost);border:1px solid var(--border);padding:44px;text-align:center}
+.ao-panel.active{display:block}
+.ao-panel img{max-width:100%;max-height:480px;object-fit:contain;display:inline-block}
+
+/* ASSOC FULL PAGE */
+.afc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bf);border:1px solid var(--bf)}
+.afc{background:var(--obs);padding:50px 46px;transition:background .4s;position:relative;overflow:hidden}
+.afc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);opacity:0;transition:opacity .4s}
+.afc:hover{background:rgba(201,168,76,.03)}
+.afc:hover::before{opacity:1}
+.afc-logo{width:68px;height:68px;object-fit:contain;margin-bottom:20px;filter:grayscale(20%);transition:filter .3s}
+.afc:hover .afc-logo{filter:grayscale(0%)}
+.afc-abbr{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:rgba(201,168,76,.12);line-height:1;margin-bottom:14px}
+.afc-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--white);margin-bottom:10px;line-height:1.3}
+.afc-body{font-size:13px;line-height:1.95;color:var(--dim)}
+.afc-tag{display:inline-flex;padding:4px 11px;border:1px solid var(--border);font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-top:20px}
+
+/* EVENTS */
+.ev-list{display:grid;grid-template-columns:1fr;gap:1px;background:var(--bf);border:1px solid var(--bf)}
+.ev{background:var(--obs);padding:40px 50px;display:grid;grid-template-columns:130px 1px 1fr auto;gap:32px;align-items:center;transition:background .4s;position:relative;overflow:hidden}
+.ev::before{content:'';position:absolute;top:0;left:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);opacity:0;transition:opacity .4s}
+.ev:hover{background:rgba(201,168,76,.03)}
+.ev:hover::before{opacity:1}
+.ev-date{text-align:center}
+.ev-mo{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.ev-day{font-family:'Cormorant Garamond',serif;font-size:50px;font-weight:300;color:var(--white);line-height:1}
+.ev-yr{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.18em;color:var(--silver)}
+.ev-vl{width:1px;height:56px;background:var(--bf)}
+.ev-cat{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:9px}
+.ev-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--white);margin-bottom:8px;line-height:1.3}
+.ev-ex{font-size:13px;line-height:1.85;color:var(--dim);max-width:560px}
+.ev-arr{width:40px;height:40px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:15px;flex-shrink:0;transition:all .3s;cursor:none}
+.ev:hover .ev-arr{background:var(--gold);color:var(--obs);border-color:var(--gold)}
+
+/* CONTACT */
+.ct-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:76px;align-items:start}
+.ct-card{background:var(--ghost);border:1px solid var(--border);padding:52px 46px;position:relative;overflow:hidden}
+.ct-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent)}
+.cd{margin-bottom:28px}
+.cd-l{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.cd-v{font-size:14px;line-height:1.8;color:var(--dim)}
+.cd-v a{color:var(--dim);text-decoration:none;transition:color .3s;cursor:none}
+.cd-v a:hover{color:var(--gold)}
+.ct-logo{width:120px;height:auto;object-fit:contain;margin-top:28px;filter:brightness(0) invert(1);opacity:.15}
+.fg{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
+.fg label{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--silver)}
+.fg input,.fg select,.fg textarea{background:var(--ghost);border:1px solid var(--bf);color:var(--white);padding:12px 15px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:300;outline:none;transition:border-color .3s;-webkit-appearance:none;width:100%}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--gold)}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--silver)}
+.fg select option{background:var(--obs)}
+.fg textarea{resize:vertical;min-height:120px}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* FOOTER */
+footer{background:var(--obs);border-top:1px solid var(--bf);padding:68px 64px 34px}
+.ft-g{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:68px;margin-bottom:68px}
+.ft-logo{height:34px;width:auto;filter:brightness(0) invert(1);opacity:.58;margin-bottom:14px;display:block}
+.ft-tag{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.26em;color:var(--silver);text-transform:uppercase;margin-bottom:20px}
+.ft-desc{font-size:13px;line-height:1.95;color:var(--dim);max-width:250px}
+.ft-ct{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+.ft-links{list-style:none;display:flex;flex-direction:column;gap:12px}
+.ft-links a{color:var(--silver);text-decoration:none;font-size:13px;transition:color .3s;cursor:none}
+.ft-links a:hover{color:var(--white)}
+.ft-ci{font-size:13px;color:var(--dim);margin-bottom:10px;line-height:1.65}
+.ft-ci a{color:var(--dim);text-decoration:none;transition:color .3s;cursor:none}
+.ft-ci a:hover{color:var(--gold)}
+.ft-bot{border-top:1px solid var(--bf);padding-top:26px;display:flex;align-items:center;justify-content:space-between}
+.ft-copy{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.16em;color:var(--silver);text-transform:uppercase}
+.ft-legal{display:flex;gap:26px}
+.ft-legal a{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver);text-decoration:none;transition:color .3s;cursor:none}
+.ft-legal a:hover{color:var(--gold)}
 
 /* RESPONSIVE */
 @media(max-width:1100px){
-  nav{padding:22px 32px}.nav-links{gap:24px}nav.scrolled{padding:14px 32px}
-  .hero,.sec,.cta-sec,.page-hero{padding-left:32px;padding-right:32px}
-  .about-2col,.about-intro,.vm-grid,.assoc-full-grid,.contact-grid{grid-template-columns:1fr;gap:48px}
-  .stats-4,.officers-grid{grid-template-columns:repeat(2,1fr)}
-  .pillars-grid,.pillars-about,.assoc-7{grid-template-columns:repeat(2,1fr)}
-  .news-3{grid-template-columns:1fr}
-  .footer-grid{grid-template-columns:1fr 1fr;gap:48px}
-  .event-c{grid-template-columns:100px 1fr auto;gap:24px}
-  .hero-stats{position:relative;bottom:auto;right:auto;margin-top:56px;justify-content:flex-start}
+  nav,nav.scrolled{padding-left:32px;padding-right:32px}
+  .hero,.sec,.cta,.pgh,.vid-sec,.ao-wrap,footer,.exec-strip{padding-left:32px;padding-right:32px}
+  .about-2col,.about-int,.vm-grid,.afc-grid,.ct-grid,.stats-hdr{grid-template-columns:1fr;gap:44px}
+  .stats4,.off-grid{grid-template-columns:repeat(2,1fr)}
+  .pillars4,.pillars-about,.assoc-logos{grid-template-columns:repeat(2,1fr)}
+  .news3{grid-template-columns:1fr}
+  .ft-g{grid-template-columns:1fr 1fr;gap:44px}
+  .ev{grid-template-columns:100px 1px 1fr auto;gap:18px}
+  .hero-stats{position:relative;bottom:auto;right:auto;margin-top:48px;justify-content:flex-start}
+  .hero-watermark{display:none}
+  .assoc-logos{grid-template-columns:repeat(4,1fr)}
 }
 @media(max-width:640px){
-  .nav-links{display:none}.nav-hamburger{display:flex}
-  .stats-4{grid-template-columns:1fr 1fr}
-  .assoc-7{grid-template-columns:repeat(3,1fr)}
-  .footer-grid{grid-template-columns:1fr}
+  .nav-links{display:none}.hbg{display:flex}
+  .stats4{grid-template-columns:1fr 1fr}
+  .assoc-logos{grid-template-columns:repeat(3,1fr)}
+  .ft-g{grid-template-columns:1fr}
   .hero-btns,.cta-row{flex-direction:column;align-items:flex-start}
-  .cta-btns.cta-row{align-items:center}
-  .cta-info{flex-direction:column;align-items:center;gap:24px}
-  .cta-vdiv{display:none}
-  .footer-bottom{flex-direction:column;gap:16px;text-align:center}
-  .form-row{grid-template-columns:1fr}
-  .event-c{grid-template-columns:1fr;gap:16px}
-  .officers-grid{grid-template-columns:1fr}
-  .assoc-full-grid{grid-template-columns:1fr}
-  .exec-card{flex-direction:column;text-align:center;gap:24px}
-  .page-hero,.officers-exec{padding-left:24px;padding-right:24px}
+  .cta-info{flex-direction:column;align-items:center;gap:20px}.cti-d{display:none}
+  .ft-bot{flex-direction:column;gap:12px;text-align:center}
+  .f2{grid-template-columns:1fr}
+  .ev{grid-template-columns:1fr;gap:12px}
+  .off-grid,.afc-grid{grid-template-columns:1fr}
+  .exec-inner{flex-direction:column;text-align:center;gap:18px}
+  .pgh,.exec-strip,.ao-wrap{padding-left:24px;padding-right:24px}
+  .pillars-about{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
@@ -352,10 +370,14 @@ footer{background:var(--obsidian);border-top:1px solid var(--border-f);padding:8
 <div class="cur-ring" id="curRing"></div>
 
 <!-- NAV -->
-<nav id="navbar">
+<nav id="nav">
   <a href="#" class="nav-logo" data-page="home">
-    <div class="nav-logo-title">MEPZCEM</div>
-    <div class="nav-logo-sub">Est. 1984 · Cebu, Philippines</div>
+    <img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/mepzcem-symetrical-transp-web.png?fit=932%2C260&ssl=1" alt="MEPZCEM" class="nav-logo-img">
+    <div class="nav-divider"></div>
+    <div class="nav-text">
+      <div class="nav-title">MEPZCEM</div>
+      <div class="nav-sub">Est. 1984 · Lapu-Lapu City, Cebu</div>
+    </div>
   </a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#" data-page="about">About</a></li>
@@ -365,790 +387,421 @@ footer{background:var(--obsidian);border-top:1px solid var(--border-f);padding:8
     <li><a href="#" data-page="contact">Contact</a></li>
     <li><a href="#" class="nav-cta" data-page="contact">Member Login</a></li>
   </ul>
-  <div class="nav-hamburger" id="hamburger">
-    <span></span><span></span><span></span>
-  </div>
+  <div class="hbg" id="hbg"><span></span><span></span><span></span></div>
 </nav>
-
-<!-- MOBILE NAV -->
-<div class="nav-mobile" id="mobileNav">
-  <a href="#" data-page="home" data-mobile="true">Home</a>
-  <a href="#" data-page="about" data-mobile="true">About Us</a>
-  <a href="#" data-page="officers" data-mobile="true">Officers</a>
-  <a href="#" data-page="associations" data-mobile="true">Associations</a>
-  <a href="#" data-page="events" data-mobile="true">Events</a>
-  <a href="#" data-page="contact" data-mobile="true">Contact Us</a>
+<div class="mob-nav" id="mobNav">
+  <a href="#" data-page="home">Home</a>
+  <a href="#" data-page="about">About Us</a>
+  <a href="#" data-page="officers">Officers</a>
+  <a href="#" data-page="associations">Associations</a>
+  <a href="#" data-page="events">Events</a>
+  <a href="#" data-page="contact">Contact Us</a>
 </div>
 
-<!-- ============================================================ -->
-<!-- HOME PAGE -->
-<!-- ============================================================ -->
+<!-- ====================================================
+     HOME
+==================================================== -->
 <div class="page active" id="page-home">
-
   <section class="hero">
-    <div class="hero-grid"></div>
-    <div class="hero-glow"></div>
-    <div class="hero-glow2"></div>
+    <div class="hero-bg"></div>
+    <div class="hero-glow"></div><div class="hero-glow2"></div>
     <div class="hero-vline"></div>
+    <div class="hero-watermark"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/mepzcem-symetrical-transp-web.png?fit=932%2C260&ssl=1" alt=""></div>
     <div class="hero-content">
-      <div class="hero-badge">
-        <div class="hero-badge-dot"></div>
-        <span>Mactan Economic Zone · Cebu, Philippines</span>
-      </div>
+      <div class="hero-badge"><div class="hero-dot"></div><span>Mactan Economic Zone · Cebu, Philippines</span></div>
       <div class="hero-eye">Since 1984 &nbsp;·&nbsp; 157 Member Companies</div>
-      <h1 class="hero-title">
-        Reaching Out<br>
-        to <em>Members</em>,<br>
-        <span class="ot">Creating</span> Solutions
-      </h1>
-      <p class="hero-sub">MEPZCEM Chamber Inc. is the premier business organization of exporters and manufacturers in the Mactan Export Processing Zone — fostering growth, partnership, and sustainable industry excellence across Cebu and beyond.</p>
+      <h1 class="hero-title">Reaching Out<br>to <em>Members</em>,<br><span class="ot">Creating</span> Solutions</h1>
+      <p class="hero-sub">MEPZCEM Chamber Inc. is the premier business organization of exporters and manufacturers in the Mactan Export Processing Zone — fostering growth, partnership, and industry excellence across Cebu.</p>
       <div class="hero-btns">
         <a href="#" class="btn-p" data-page="about"><span>Discover MEPZCEM</span></a>
-        <a href="#" class="btn-s" data-page="events">Upcoming Events</a>
+        <a href="#" class="btn-s" data-page="events">Latest News</a>
       </div>
     </div>
     <div class="hero-stats">
-      <div>
-        <div class="hstat-num">157<span>+</span></div>
-        <div class="hstat-lbl">Member Companies</div>
-      </div>
-      <div>
-        <div class="hstat-num">40<span>+</span></div>
-        <div class="hstat-lbl">Years of Service</div>
-      </div>
-      <div>
-        <div class="hstat-num">7</div>
-        <div class="hstat-lbl">Associations</div>
-      </div>
+      <div><div class="hs-n">157<span>+</span></div><div class="hs-l">Member Companies</div></div>
+      <div><div class="hs-n">40<span>+</span></div><div class="hs-l">Years of Service</div></div>
+      <div><div class="hs-n">7</div><div class="hs-l">Associations</div></div>
     </div>
-    <div class="scroll-ind">
-      <span>Scroll</span>
-      <div class="scroll-line"></div>
-    </div>
+    <div class="scroll-ind"><span>Scroll</span><div class="scroll-line"></div></div>
   </section>
 
-  <!-- Marquee -->
-  <div class="marquee-wrap">
-    <div class="marquee-track">
-      <span class="mq-item"><span class="mq-dot">◆</span>Manufacturing Excellence</span>
-      <span class="mq-item"><span class="mq-dot">◆</span>Export Growth</span>
-      <span class="mq-item"><span class="mq-dot">◆</span>Industry Partnerships</span>
-      <span class="mq-item"><span class="mq-dot">◆</span>Workforce Development</span>
-      <span class="mq-item"><span class="mq-dot">◆</span>Sustainable Operations</span>
-      <span class="mq-item"><span class="mq-dot">◆</span>Community Impact</span>
-      <span class="mq-item"><span class="mq-dot">◆</span>MEPZ 1 &amp; 2</span>
-      <span class="mq-item"><span class="mq-dot">◆</span>Cebu Business Park</span>
-      <span class="mq-item"><span class="mq-dot">◆</span>PEZA Advocacy</span>
-      <span class="mq-item"><span class="mq-dot">◆</span>Industrial Peace</span>
-      <span class="mq-item"><span class="mq-dot">◆</span>Manufacturing Excellence</span>
-      <span class="mq-item"><span class="mq-dot">◆</span>Export Growth</span>
-      <span class="mq-item"><span class="mq-dot">◆</span>Industry Partnerships</span>
-      <span class="mq-item"><span class="mq-dot">◆</span>Workforce Development</span>
-      <span class="mq-item"><span class="mq-dot">◆</span>Sustainable Operations</span>
-      <span class="mq-item"><span class="mq-dot">◆</span>Community Impact</span>
-      <span class="mq-item"><span class="mq-dot">◆</span>MEPZ 1 &amp; 2</span>
-      <span class="mq-item"><span class="mq-dot">◆</span>Cebu Business Park</span>
-      <span class="mq-item"><span class="mq-dot">◆</span>PEZA Advocacy</span>
-      <span class="mq-item"><span class="mq-dot">◆</span>Industrial Peace</span>
+  <div class="mq">
+    <div class="mq-track">
+      <span class="mq-item"><span class="mq-dot">◆</span>Manufacturing Excellence</span><span class="mq-item"><span class="mq-dot">◆</span>Export Growth</span><span class="mq-item"><span class="mq-dot">◆</span>Industry Partnerships</span><span class="mq-item"><span class="mq-dot">◆</span>Workforce Development</span><span class="mq-item"><span class="mq-dot">◆</span>Sustainable Operations</span><span class="mq-item"><span class="mq-dot">◆</span>Community Impact</span><span class="mq-item"><span class="mq-dot">◆</span>MEPZ 1 &amp; 2</span><span class="mq-item"><span class="mq-dot">◆</span>Cebu Business Park</span><span class="mq-item"><span class="mq-dot">◆</span>PEZA Advocacy</span><span class="mq-item"><span class="mq-dot">◆</span>Industrial Peace</span>
+      <span class="mq-item"><span class="mq-dot">◆</span>Manufacturing Excellence</span><span class="mq-item"><span class="mq-dot">◆</span>Export Growth</span><span class="mq-item"><span class="mq-dot">◆</span>Industry Partnerships</span><span class="mq-item"><span class="mq-dot">◆</span>Workforce Development</span><span class="mq-item"><span class="mq-dot">◆</span>Sustainable Operations</span><span class="mq-item"><span class="mq-dot">◆</span>Community Impact</span><span class="mq-item"><span class="mq-dot">◆</span>MEPZ 1 &amp; 2</span><span class="mq-item"><span class="mq-dot">◆</span>Cebu Business Park</span><span class="mq-item"><span class="mq-dot">◆</span>PEZA Advocacy</span><span class="mq-item"><span class="mq-dot">◆</span>Industrial Peace</span>
     </div>
   </div>
 
-  <!-- About Strip -->
   <section class="sec">
-    <div class="sec-inner">
+    <div class="si">
       <div class="about-2col">
         <div class="rv">
-          <div class="sec-lbl">About the Chamber</div>
-          <h2 class="sec-title">Built on <em>decades</em> of industrial leadership</h2>
+          <div class="lbl">About the Chamber</div>
+          <h2 class="h2">Built on <em>decades</em> of industrial leadership</h2>
           <div class="about-text">
-            <p>Founded in 1984 with just six member companies, MEPZCEM has grown into the backbone of Cebu's export manufacturing sector — representing 157 companies across multiple economic zones.</p>
-            <p>From MEPZ 1 and 2 to Cebu Business Park, NCTO in Naga City, WCIP in Balamban, and beyond — we champion our members' interests at every level of government and industry.</p>
+            <p>Founded in 1984 with just six member companies, MEPZCEM has grown into the backbone of Cebu's export manufacturing sector — now representing 157 companies across multiple economic zones including MEPZ 1 &amp; 2, Cebu Business Park, NCTO in Naga City, WCIP in Balamban, and PASAR in Isabel, Leyte.</p>
+            <p>We champion our members' interests at every level. We have not changed our name — to remind us of our humble beginning.</p>
           </div>
           <a href="#" class="btn-s" data-page="about" style="margin-top:8px">Our Full Story →</a>
         </div>
         <div class="rv d2">
-          <div class="about-card">
-            <div class="about-card-yr">1984</div>
-            <div class="about-card-body">
+          <div class="acard">
+            <div class="acard-yr">1984</div>
+            <div class="acard-body">
               <h3>Our Foundation</h3>
-              <div class="about-divider"></div>
-              <p>Organized in MEPZ 1 with six pioneer companies, MEPZCEM was built on a shared vision: to create a unified voice for exporters and manufacturers in the Mactan corridor.</p>
-              <p style="margin-top:14px">We have not changed our name — to remind us of our humble beginning.</p>
-              <div class="about-tag">Lapu-Lapu City, Cebu · Philippines</div>
+              <div class="adiv"></div>
+              <p>Organized in MEPZ 1 with six pioneer companies, MEPZCEM was built on a shared vision: a unified voice for exporters and manufacturers in the Mactan corridor.</p>
+              <p style="margin-top:12px">Today it stands as the nerve center of Region VII's export manufacturing industry.</p>
+              <div class="atag">Lapu-Lapu City, Cebu · Philippines</div>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Pillars -->
-      <div class="rv" style="margin-top:100px">
-        <div class="sec-lbl">What We Do</div>
-        <h2 class="sec-title">Four pillars of <em>excellence</em></h2>
-      </div>
-      <div class="pillars-grid">
-        <div class="pillar rv d1"><div class="pillar-icon">⚖️</div><div class="pillar-title">Advocacy</div><div class="pillar-desc">Frontliner in support or opposition to local and national issues affecting our members and surrounding community. PEZA, BOC, DENR, and LGU liaison.</div></div>
-        <div class="pillar rv d2"><div class="pillar-icon">📚</div><div class="pillar-title">Education</div><div class="pillar-desc">Non-stop learning through training, seminars, webinars, coaching, and knowledge-sharing for all member companies — young and old.</div></div>
-        <div class="pillar rv d3"><div class="pillar-icon">🤝</div><div class="pillar-title">Fellowship</div><div class="pillar-desc">Sportsfest, team building, the Pursuit of Excellence showcase, golf tournaments, fun runs, and more — building unity and lasting bonds.</div></div>
-        <div class="pillar rv d4"><div class="pillar-icon">🌱</div><div class="pillar-title">Service</div><div class="pillar-desc">Community outreach through adopt-a-school, medical missions, tree planting, coastal cleanup, and relief efforts for calamity victims.</div></div>
+      <div class="rv" style="margin-top:92px"><div class="lbl">What We Do</div><h2 class="h2">Four pillars of <em>excellence</em></h2></div>
+      <div class="pillars4">
+        <div class="p4 rv d1"><div class="p4-icon">⚖️</div><div class="p4-t">Advocacy</div><div class="p4-d">Frontliner in support or opposition to local and national issues affecting our members. PEZA, BOC, DENR, and LGU liaison.</div></div>
+        <div class="p4 rv d2"><div class="p4-icon">📚</div><div class="p4-t">Education</div><div class="p4-d">Non-stop learning through training, seminars, webinars, and coaching for all member companies.</div></div>
+        <div class="p4 rv d3"><div class="p4-icon">🤝</div><div class="p4-t">Fellowship</div><div class="p4-d">Sportsfest, team building, Pursuit of Excellence, golf tournaments, and fun runs — building unity and lasting bonds.</div></div>
+        <div class="p4 rv d4"><div class="p4-icon">🌱</div><div class="p4-t">Service</div><div class="p4-d">Community outreach through adopt-a-school, medical missions, tree planting, coastal cleanup, and calamity relief.</div></div>
       </div>
     </div>
   </section>
 
-  <!-- Stats & Assoc -->
+  <!-- VIDEO -->
+  <div class="vid-sec rv">
+    <div class="vid-inner">
+      <div class="lbl" style="margin-bottom:22px">Mactan Economic Zone</div>
+      <a href="https://youtu.be/QMiq9y2FZL8" target="_blank" rel="noopener" class="vid-wrap">
+        <img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/mactan-vid.jpg?resize=1200%2C540&ssl=1" alt="Mactan Economic Zone">
+        <div class="vid-play"></div>
+        <div class="vid-label">▶ &nbsp; Watch — Mactan Economic Zone Overview</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- STATS & ASSOC -->
   <section class="sec stats-bg">
-    <div class="sec-inner">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end" class="rv">
-        <div>
-          <div class="sec-lbl">Membership &amp; Reach</div>
-          <h2 class="sec-title">A network that drives <em>Philippine</em> exports forward</h2>
-        </div>
-        <p style="color:var(--white-dim);font-size:14px;line-height:1.95" class="rv d2">MEPZCEM represents dynamic export companies — from electronics and garments to industrial manufacturing — creating thousands of jobs and contributing significantly to the national export economy.</p>
+    <div class="si">
+      <div class="stats-hdr">
+        <div class="rv"><div class="lbl">Membership &amp; Reach</div><h2 class="h2" style="margin-bottom:0">A network driving <em>Philippine</em> exports forward</h2></div>
+        <p class="rv d2" style="color:var(--dim);font-size:14px;line-height:1.95">MEPZCEM represents dynamic export companies — from electronics and garments to industrial manufacturing — creating thousands of jobs and contributing significantly to the national export economy.</p>
       </div>
-      <div class="stats-4">
-        <div class="stat-c rv"><div class="stat-n">157<sup>+</sup></div><div class="stat-l">Member Companies</div></div>
-        <div class="stat-c rv d1"><div class="stat-n">40<sup>+</sup></div><div class="stat-l">Years of Operations</div></div>
-        <div class="stat-c rv d2"><div class="stat-n">7</div><div class="stat-l">Industry Associations</div></div>
-        <div class="stat-c rv d3"><div class="stat-n">5<sup>+</sup></div><div class="stat-l">Economic Zones</div></div>
+      <div class="stats4">
+        <div class="sc rv"><div class="sc-n">157<sup>+</sup></div><div class="sc-l">Member Companies</div></div>
+        <div class="sc rv d1"><div class="sc-n">40<sup>+</sup></div><div class="sc-l">Years of Operations</div></div>
+        <div class="sc rv d2"><div class="sc-n">7</div><div class="sc-l">Industry Associations</div></div>
+        <div class="sc rv d3"><div class="sc-n">5<sup>+</sup></div><div class="sc-l">Economic Zones</div></div>
       </div>
-      <div class="sec-lbl rv" style="margin-top:72px;margin-bottom:16px">Member Associations</div>
-      <div class="assoc-7 rv">
-        <div class="assoc-c"><div class="assoc-ico">HRA</div><div class="assoc-nm">MEPZ Human Resources Assn</div></div>
-        <div class="assoc-c"><div class="assoc-ico">PMA</div><div class="assoc-nm">Purchasing Mgmt Assn</div></div>
-        <div class="assoc-c"><div class="assoc-ico">TRA</div><div class="assoc-nm">MEPZ Traffic Assn</div></div>
-        <div class="assoc-c"><div class="assoc-ico">SS</div><div class="assoc-nm">Security &amp; Safety Council</div></div>
-        <div class="assoc-c"><div class="assoc-ico">AM</div><div class="assoc-nm">Controllers &amp; Accountants</div></div>
-        <div class="assoc-c"><div class="assoc-ico">FA</div><div class="assoc-nm">Facilities &amp; Maintenance</div></div>
-        <div class="assoc-c"><div class="assoc-ico">IT</div><div class="assoc-nm">MEZ Information Tech</div></div>
+      <div class="lbl rv" style="margin-top:60px;margin-bottom:14px">Member Associations</div>
+      <div class="assoc-logos rv">
+        <div class="al-c"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/mepz-hra.png?resize=200%2C200&ssl=1" alt="MEPZ HRA"><div class="al-nm">MEPZ HRA</div></div>
+        <div class="al-c"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/mez-pma.png?resize=200%2C200&ssl=1" alt="MEZ PMA"><div class="al-nm">MEZ PMA</div></div>
+        <div class="al-c"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/mepz-tra.png?resize=200%2C200&ssl=1" alt="MEPZ TRA"><div class="al-nm">MEPZ TRA</div></div>
+        <div class="al-c"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/mepz-ssci.png?resize=200%2C200&ssl=1" alt="MEZ SSCI"><div class="al-nm">MEZ SSCI</div></div>
+        <div class="al-c"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/amca.png?resize=200%2C200&ssl=1" alt="AMCA"><div class="al-nm">AMCA</div></div>
+        <div class="al-c"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/mez-famea.png?resize=200%2C200&ssl=1" alt="MEZ FAMEA"><div class="al-nm">MEZ FAMEA</div></div>
+        <div class="al-c"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/mez-it.png?resize=200%2C200&ssl=1" alt="MEZ IT"><div class="al-nm">MEZ IT</div></div>
       </div>
     </div>
   </section>
 
-  <!-- News -->
+  <!-- NEWS -->
   <section class="sec">
-    <div class="sec-inner">
-      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px" class="rv">
-        <div>
-          <div class="sec-lbl">Latest from MEPZCEM</div>
-          <h2 class="sec-title" style="margin-bottom:0">Chamber <em>news</em> &amp; updates</h2>
-        </div>
+    <div class="si">
+      <div class="rv" style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px;flex-wrap:wrap;gap:18px">
+        <div><div class="lbl">Latest from MEPZCEM</div><h2 class="h2" style="margin-bottom:0">Chamber <em>news</em> &amp; updates</h2></div>
         <a href="#" class="btn-s" data-page="events">View All →</a>
       </div>
-      <div class="news-3 rv">
-        <div class="news-c feat">
-          <div><div class="news-tag">Partnership · Jan 2026</div><div class="news-ttl">MEPZCEM Joins JCCICI General Assembly — Strengthening Japan-Philippines Industry Ties</div></div>
-          <div class="news-meta"><span class="news-date">January 27, 2026</span><a href="#" class="news-arr" data-page="events">→</a></div>
-        </div>
-        <div class="news-c">
-          <div><div class="news-tag">Leadership · Jan 2026</div><div class="news-ttl">Officers Honor ZA Cortero, Welcome New Zone Administrator Arnel Suyu</div></div>
-          <div class="news-meta"><span class="news-date">January 27, 2026</span><a href="#" class="news-arr" data-page="events">→</a></div>
-        </div>
-        <div class="news-c">
-          <div><div class="news-tag">Community · Jan 2026</div><div class="news-ttl">Chamber Leads Bayanihan Relief Efforts for Typhoon Tino Survivors</div></div>
-          <div class="news-meta"><span class="news-date">January 27, 2026</span><a href="#" class="news-arr" data-page="events">→</a></div>
-        </div>
+      <div class="news3 rv">
+        <div class="nc feat"><div><div class="nc-tag">Partnership · Jan 2026</div><div class="nc-t">MEPZCEM Joins JCCICI General Assembly — Strengthening Japan-Philippines Industry Ties</div></div><div class="nc-meta"><span class="nc-date">January 27, 2026</span><a href="#" class="nc-arr" data-page="events">→</a></div></div>
+        <div class="nc"><div><div class="nc-tag">Leadership · Jan 2026</div><div class="nc-t">Officers Honor ZA Cortero, Welcome New Zone Administrator Arnel Suyu</div></div><div class="nc-meta"><span class="nc-date">January 27, 2026</span><a href="#" class="nc-arr" data-page="events">→</a></div></div>
+        <div class="nc"><div><div class="nc-tag">Community · Jan 2026</div><div class="nc-t">Chamber Leads Bayanihan Relief Efforts for Typhoon Tino Survivors</div></div><div class="nc-meta"><span class="nc-date">January 27, 2026</span><a href="#" class="nc-arr" data-page="events">→</a></div></div>
       </div>
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="cta-sec">
-    <div class="cta-glow"></div>
-    <div class="cta-grid"></div>
+  <section class="cta">
+    <div class="cta-glow"></div><div class="cta-grid"></div>
     <div class="cta-body">
-      <div class="sec-lbl rv" style="justify-content:center;margin-bottom:28px">Join the Chamber</div>
-      <h2 class="cta-title rv">Become part of <em>Cebu's</em> premier business chamber</h2>
-      <p class="cta-sub rv d1">Whether you're an established exporter or a growing manufacturer, MEPZCEM gives your company the voice, network, and resources to thrive.</p>
-      <div class="cta-row rv d2">
-        <a href="#" class="btn-p" data-page="contact"><span>Apply for Membership</span></a>
-        <a href="#" class="btn-s" data-page="about">Learn More</a>
-      </div>
+      <div class="lbl rv" style="justify-content:center;margin-bottom:26px">Join the Chamber</div>
+      <h2 class="cta-t rv">Become part of <em>Cebu's</em> premier business chamber</h2>
+      <p class="cta-s rv d1">Whether you're an established exporter or a growing manufacturer, MEPZCEM gives your company the voice, network, and resources to thrive.</p>
+      <div class="cta-row rv d2"><a href="#" class="btn-p" data-page="contact"><span>Apply for Membership</span></a><a href="#" class="btn-s" data-page="about">Learn More</a></div>
       <div class="cta-info rv d3">
-        <div class="cta-inf-item"><div class="cta-inf-lbl">Phone</div><div class="cta-inf-val"><a href="tel:+639173129146">+63 917 312 9146</a></div></div>
-        <div class="cta-vdiv"></div>
-        <div class="cta-inf-item"><div class="cta-inf-lbl">Address</div><div class="cta-inf-val">Unit 2G, BF Mactan Strip 1, Lapu-Lapu City, Cebu</div></div>
-        <div class="cta-vdiv"></div>
-        <div class="cta-inf-item"><div class="cta-inf-lbl">Email</div><div class="cta-inf-val"><a href="mailto:info@mepzcem.com">info@mepzcem.com</a></div></div>
+        <div class="cti"><div class="cti-l">Phone</div><div class="cti-v"><a href="tel:+639173129146">+63 917 312 9146</a></div></div>
+        <div class="cti-d"></div>
+        <div class="cti"><div class="cti-l">Address</div><div class="cti-v">Unit 2G, BF Mactan Strip 1, Lapu-Lapu City</div></div>
+        <div class="cti-d"></div>
+        <div class="cti"><div class="cti-l">Inquiries</div><div class="cti-v"><a href="#" data-page="contact">Contact Form →</a></div></div>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
   <footer>
-    <div class="footer-grid">
-      <div><div class="footer-brand-name">MEPZCEM</div><div class="footer-brand-tag">Chamber of Exporters &amp; Manufacturers</div><p class="footer-brand-desc">Serving the business community of the Mactan Export Processing Zone since 1984. Reaching out to members, creating solutions.</p></div>
-      <div><div class="footer-col-title">Navigate</div><ul class="footer-links"><li><a href="#" data-page="about">About Us</a></li><li><a href="#" data-page="officers">Officers</a></li><li><a href="#" data-page="associations">Associations</a></li><li><a href="#" data-page="events">Events</a></li><li><a href="#" data-page="contact">Contact Us</a></li></ul></div>
-      <div><div class="footer-col-title">Members</div><ul class="footer-links"><li><a href="#" data-page="contact">Member Login</a></li><li><a href="#" data-page="contact">Join MEPZCEM</a></li><li><a href="#" data-page="associations">Associations</a></li></ul></div>
-      <div><div class="footer-col-title">Contact</div><div class="footer-contact-item">Unit 2G, BF Mactan Strip 1<br>M.L. Quezon Ave., Pajo<br>Lapu-Lapu City, Cebu 6015</div><div class="footer-contact-item"><a href="tel:+639173129146">+63 917 312 9146</a></div><div class="footer-contact-item"><a href="tel:+639174251669">+63 917 425 1669</a></div></div>
+    <div class="ft-g">
+      <div><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/mepzcem-symetrical-transp-web.png?fit=932%2C260&ssl=1" alt="MEPZCEM" class="ft-logo"><div class="ft-tag">Chamber of Exporters &amp; Manufacturers</div><p class="ft-desc">Serving the business community of the Mactan Export Processing Zone since 1984. Reaching out to members, creating solutions.</p></div>
+      <div><div class="ft-ct">Navigate</div><ul class="ft-links"><li><a href="#" data-page="about">About Us</a></li><li><a href="#" data-page="officers">Officers</a></li><li><a href="#" data-page="associations">Associations</a></li><li><a href="#" data-page="events">Events</a></li><li><a href="#" data-page="contact">Contact Us</a></li></ul></div>
+      <div><div class="ft-ct">Members</div><ul class="ft-links"><li><a href="#" data-page="contact">Member Login</a></li><li><a href="#" data-page="contact">Join MEPZCEM</a></li><li><a href="#" data-page="associations">Associations</a></li></ul></div>
+      <div><div class="ft-ct">Contact</div><div class="ft-ci">Unit 2G, BF Mactan Strip 1<br>M.L. Quezon Ave., Pajo<br>Lapu-Lapu City, Cebu 6015</div><div class="ft-ci"><a href="tel:+639173129146">+63 917 312 9146</a></div><div class="ft-ci"><a href="tel:+639174251669">+63 917 425 1669</a></div></div>
     </div>
-    <div class="footer-bottom"><div class="footer-copy">© 2026 MEPZCEM Chamber Inc. · All Rights Reserved</div><div class="footer-legal"><a href="#">Terms of Service</a><a href="#">Privacy Policy</a></div></div>
+    <div class="ft-bot"><div class="ft-copy">© 2026 MEPZCEM Chamber Inc. · All Rights Reserved</div><div class="ft-legal"><a href="#">Terms of Service</a><a href="#">Privacy Policy</a></div></div>
   </footer>
 </div>
 
-<!-- ============================================================ -->
-<!-- ABOUT PAGE -->
-<!-- ============================================================ -->
+<!-- ====================================================
+     ABOUT
+==================================================== -->
 <div class="page" id="page-about">
-  <div class="page-hero">
-    <div class="page-hero-grid"></div>
-    <div class="page-hero-glow"></div>
-    <div class="page-hero-content">
-      <div class="page-hero-eye">About the Chamber</div>
-      <h1 class="page-hero-title">Who we <em>are</em></h1>
-    </div>
+  <div class="pgh">
+    <div class="pgh-bg" style="background-image:url('https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/about-bnr.jpg?resize=1200%2C800&ssl=1')"></div>
+    <div class="pgh-ov"></div><div class="pgh-grid"></div><div class="pgh-glow"></div>
+    <div class="pgh-content"><div class="pgh-eye">About the Chamber</div><h1 class="pgh-t">Who we <em>are</em></h1></div>
   </div>
-
   <section class="sec">
-    <div class="sec-inner">
-      <div class="about-intro">
+    <div class="si">
+      <div class="about-int">
         <div class="rv">
-          <p class="about-intro-lede">MEPZCEM Chamber Inc. — the Mactan Export Processing Zone Chamber of Exporters and Manufacturers — was organized in 1984 in MEPZ 1 with six founding member companies.</p>
-          <div class="about-intro-body">
-            <p>Today, the chamber has grown its membership to 157 companies and support groups, expanding to MEPZ 2, Cebu Light Industrial Park, Cebu Business Park, MRI in Danao City, New Cebu Township One (NCTO) in Naga City, WCIP in Balamban, and PASAR in Isabel, Leyte.</p>
-            <p>We have not changed our name — to remind us of our humble beginning and keep us grounded in our original mission.</p>
-            <p>The organization aims to promote the general welfare of its member companies, their employees, and the communities where they operate. It is committed to the professional and effective delivery of business assistance services primarily to its members and the Cebu business community.</p>
-          </div>
+          <p class="a-lede">MEPZCEM Chamber Inc. — the Mactan Export Processing Zone Chamber of Exporters and Manufacturers — was organized in 1984 in MEPZ 1 with six founding member companies.</p>
+          <div class="a-body"><p>Today, the chamber has grown its membership to 157 companies and support groups, expanding to MEPZ 2, Cebu Light Industrial Park, Cebu Business Park, MRI in Danao City, New Cebu Township One (NCTO) in Naga City, WCIP in Balamban, and PASAR in Isabel, Leyte.</p><p>We have not changed our name — to remind us of our humble beginning and keep us grounded in our original mission.</p><p>The organization promotes the general welfare of its member companies, their employees, and the communities where they operate. It advocates for the simplification and decentralization of PEZA, BOC, DENR, and LGU rules and procedures.</p></div>
         </div>
         <div class="rv d2">
-          <div class="about-intro-body">
-            <p>MEPZCEM advocates for the simplification and decentralization of PEZA, BOC, DENR, and LGU rules and procedures. It has spearheaded various projects on automation, energy and environment conservation, and community relations.</p>
-            <p>MEPZCEM is the umbrella organization of seven associations in the economic zones, representing professionals in HR, purchasing, traffic, security, accounting, facilities management, and information technology.</p>
-            <p>Member companies have worked through calamities together — typhoons, earthquakes, and the Covid-19 pandemic — demonstrating the chamber's spirit of bayanihan and solidarity.</p>
-          </div>
-          <a href="#" class="btn-p" data-page="contact" style="margin-top:28px"><span>Join the Chamber</span></a>
+          <div class="a-body"><p>MEPZCEM is the umbrella organization of seven associations representing professionals in HR, purchasing, traffic, security, accounting, facilities management, and information technology.</p><p>MEPZCEM has worked with PEZA, NGOs, and government agencies in seeking solutions to support locators — cheaper power, adequate water supply, and 24/7 Customs support.</p><p>Through its associations, MEPZCEM has been active in relief efforts for victims of natural calamities — typhoons, earthquakes, and Covid-19 — demonstrating the spirit of bayanihan and solidarity.</p><p>Member companies also play hard through Sportsfest, ERT Competition, Fun Run, Golf Tournament, and the Pursuit of Excellence — fostering unity and strong relations.</p></div>
+          <a href="#" class="btn-p" data-page="contact" style="margin-top:26px"><span>Join the Chamber</span></a>
         </div>
       </div>
-
-      <!-- Vision / Mission -->
-      <div class="rv" style="margin-bottom:24px">
-        <div class="sec-lbl">Direction &amp; Purpose</div>
-        <h2 class="sec-title">Vision &amp; <em>Mission</em></h2>
-      </div>
+      <div class="rv" style="margin-bottom:20px"><div class="lbl">Direction &amp; Purpose</div><h2 class="h2">Vision &amp; <em>Mission</em></h2></div>
       <div class="vm-grid rv">
-        <div class="vm-card">
-          <div class="vm-card-label">Vision</div>
-          <div class="vm-card-title">The Leading Chamber<br>of Region VII</div>
-          <div class="vm-card-body">MEPZCEM envisions itself to be the leading, dynamic and progressive chamber in Region VII, Philippines — committed to the professional and effective delivery of business assistance services primarily to its members and the Cebu business community. It envisions meaningfully contributing to the economic and social well-being of Cebu.</div>
-        </div>
-        <div class="vm-card">
-          <div class="vm-card-label">Mission</div>
-          <div class="vm-card-title">Serve, Grow,<br>and Unite</div>
-          <div class="vm-card-body">To promote programs relevant to the growing needs of the Mactan and Cebu business community. To ensure a mature and professional chamber organization serving as the nerve center in Region VII. To promote harmony among multinational members and advocate adherence to ethical business standards. To institutionalize linkages with local and foreign organizations.</div>
-        </div>
+        <div class="vm-c"><div class="vm-lbl">Vision</div><div class="vm-title">The Leading Chamber of Region VII</div><div class="vm-body">MEPZCEM envisions itself to be the leading, dynamic and progressive chamber in Region VII, Philippines — committed to the professional and effective delivery of business assistance services primarily to its members and the Cebu business community. It envisions meaningfully contributing to the economic and social well-being of Cebu.</div></div>
+        <div class="vm-c"><div class="vm-lbl">Mission</div><div class="vm-title">Serve, Grow, and Unite</div><div class="vm-body">To promote programs relevant to the growing needs of the Mactan and Cebu business community. To ensure a mature and professional chamber organization serving as the nerve center in Region VII. To promote harmony among multinational members and advocate adherence to ethical business standards. To institutionalize linkages with local and foreign organizations.</div></div>
       </div>
-
-      <!-- Pillars -->
-      <div class="rv" style="margin-top:100px;margin-bottom:24px">
-        <div class="sec-lbl">Our Commitments</div>
-        <h2 class="sec-title">What MEPZCEM does <em>for you</em></h2>
-      </div>
-      <div class="pillars-about">
-        <div class="pillar-a rv"><div class="pillar-a-num">01</div><div class="pillar-a-title">Advocacy</div><div class="pillar-a-body">Frontliner in support or opposition to local and national issues that affect our members and surrounding community. We engage PEZA, BOC, DENR, and LGU on behalf of our locators.</div></div>
-        <div class="pillar-a rv d1"><div class="pillar-a-num">02</div><div class="pillar-a-title">Education</div><div class="pillar-a-body">Non-stop learning for all through training sessions, seminars, webinars, nurturing programs, and coaching — keeping our member companies ahead of the curve.</div></div>
-        <div class="pillar-a rv d2"><div class="pillar-a-num">03</div><div class="pillar-a-title">Fellowship</div><div class="pillar-a-body">Fun through sportsfest, team building, wholesome competition, golf tournaments, fun runs, and the acclaimed Pursuit of Excellence showcase.</div></div>
-        <div class="pillar-a rv d3"><div class="pillar-a-num">04</div><div class="pillar-a-title">Community Service</div><div class="pillar-a-body">Adopt-a-school programs, medical missions, tree planting, coastal cleanups, and disaster relief — because our responsibility extends beyond the factory gates.</div></div>
+      <div class="rv" style="margin-top:90px;margin-bottom:20px"><div class="lbl">Our Commitments</div><h2 class="h2">What MEPZCEM does <em>for you</em></h2></div>
+      <div class="pillars-about rv">
+        <div class="pa"><div class="pa-n">01</div><div class="pa-t">Advocacy</div><div class="pa-d">Frontliner in support or opposition to local and national issues. We engage PEZA, BOC, DENR, and LGUs on behalf of our locators for better business conditions.</div></div>
+        <div class="pa"><div class="pa-n">02</div><div class="pa-t">Education</div><div class="pa-d">Non-stop learning through training sessions, seminars, webinars, and coaching — keeping member companies ahead of regulatory and industry changes.</div></div>
+        <div class="pa"><div class="pa-n">03</div><div class="pa-t">Fellowship</div><div class="pa-d">Sportsfest, Golf Tournament, Fun Run, and the Pursuit of Excellence showcase — fostering unity and lasting business partnerships.</div></div>
+        <div class="pa"><div class="pa-n">04</div><div class="pa-t">Community Service</div><div class="pa-d">Adopt-a-school, medical missions, tree planting, coastal cleanups, and disaster relief — our responsibility extends beyond the factory gates.</div></div>
       </div>
     </div>
   </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-grid">
-      <div><div class="footer-brand-name">MEPZCEM</div><div class="footer-brand-tag">Chamber of Exporters &amp; Manufacturers</div><p class="footer-brand-desc">Serving the business community of the Mactan Export Processing Zone since 1984.</p></div>
-      <div><div class="footer-col-title">Navigate</div><ul class="footer-links"><li><a href="#" data-page="home">Home</a></li><li><a href="#" data-page="officers">Officers</a></li><li><a href="#" data-page="associations">Associations</a></li><li><a href="#" data-page="events">Events</a></li><li><a href="#" data-page="contact">Contact</a></li></ul></div>
-      <div><div class="footer-col-title">Members</div><ul class="footer-links"><li><a href="#" data-page="contact">Member Login</a></li><li><a href="#" data-page="contact">Join MEPZCEM</a></li></ul></div>
-      <div><div class="footer-col-title">Contact</div><div class="footer-contact-item">Unit 2G, BF Mactan Strip 1, Lapu-Lapu City, Cebu 6015</div><div class="footer-contact-item"><a href="tel:+639173129146">+63 917 312 9146</a></div></div>
-    </div>
-    <div class="footer-bottom"><div class="footer-copy">© 2026 MEPZCEM Chamber Inc.</div><div class="footer-legal"><a href="#">Terms</a><a href="#">Privacy</a></div></div>
-  </footer>
+  <footer><div class="ft-g"><div><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/mepzcem-symetrical-transp-web.png?fit=932%2C260&ssl=1" alt="MEPZCEM" class="ft-logo"><div class="ft-tag">Chamber of Exporters &amp; Manufacturers</div><p class="ft-desc">Serving the business community of the Mactan Export Processing Zone since 1984.</p></div><div><div class="ft-ct">Navigate</div><ul class="ft-links"><li><a href="#" data-page="home">Home</a></li><li><a href="#" data-page="officers">Officers</a></li><li><a href="#" data-page="associations">Associations</a></li><li><a href="#" data-page="events">Events</a></li><li><a href="#" data-page="contact">Contact</a></li></ul></div><div><div class="ft-ct">Members</div><ul class="ft-links"><li><a href="#" data-page="contact">Member Login</a></li><li><a href="#" data-page="contact">Join MEPZCEM</a></li></ul></div><div><div class="ft-ct">Contact</div><div class="ft-ci">Unit 2G, BF Mactan Strip 1, Lapu-Lapu City, Cebu 6015</div><div class="ft-ci"><a href="tel:+639173129146">+63 917 312 9146</a></div></div></div><div class="ft-bot"><div class="ft-copy">© 2026 MEPZCEM Chamber Inc.</div><div class="ft-legal"><a href="#">Terms</a><a href="#">Privacy</a></div></div></footer>
 </div>
 
-<!-- ============================================================ -->
-<!-- OFFICERS PAGE -->
-<!-- ============================================================ -->
+<!-- ====================================================
+     OFFICERS
+==================================================== -->
 <div class="page" id="page-officers">
-  <div class="page-hero">
-    <div class="page-hero-grid"></div>
-    <div class="page-hero-glow"></div>
-    <div class="page-hero-content">
-      <div class="page-hero-eye">2024–2025 Leadership</div>
-      <h1 class="page-hero-title">Board of <em>Directors</em></h1>
-    </div>
+  <div class="pgh">
+    <div class="pgh-bg" style="background-image:url('https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/board-bnr.jpg?resize=1200%2C797&ssl=1')"></div>
+    <div class="pgh-ov"></div><div class="pgh-grid"></div><div class="pgh-glow"></div>
+    <div class="pgh-content"><div class="pgh-eye">2024–2025 Leadership</div><h1 class="pgh-t">Board of <em>Directors</em></h1></div>
   </div>
-
   <section class="sec">
-    <div class="sec-inner">
-      <div class="sec-lbl rv" style="margin-bottom:48px">MEPZCEM Officers</div>
-      <div class="officers-grid">
-        <div class="officer-c featured rv">
-          <div class="officer-avatar">LB</div>
-          <div class="officer-role">President &amp; Board of Director</div>
-          <div class="officer-name">Lorena Baluran</div>
-          <div class="officer-sector">Sector: MEZ I</div>
-          <div class="officer-divider"></div>
-          <div class="officer-company">Director, Philippine Operations (Plant Gabriella)<br>Lear Automotive Services (Netherlands) B.V.-PHL Branch</div>
-        </div>
-        <div class="officer-c rv d1">
-          <div class="officer-avatar">EG</div>
-          <div class="officer-role">Vice President &amp; Board of Director</div>
-          <div class="officer-name">Evan Gonzalez</div>
-          <div class="officer-sector">Sector: Other Ecozones</div>
-          <div class="officer-divider"></div>
-          <div class="officer-company">Global Engineering Manager / External Affairs Rep.<br>Teradyne Philippines Ltd.</div>
-        </div>
-        <div class="officer-c rv d2">
-          <div class="officer-avatar">PM</div>
-          <div class="officer-role">Secretary &amp; Board of Director</div>
-          <div class="officer-name">Porferio "Dodon" Montesclaros</div>
-          <div class="officer-sector">Sector: MEZ II</div>
-          <div class="officer-divider"></div>
-          <div class="officer-company">General Manager<br>Hanazono Technologies</div>
-        </div>
-        <div class="officer-c rv">
-          <div class="officer-avatar">PC</div>
-          <div class="officer-role">Treasurer &amp; Board of Director</div>
-          <div class="officer-name">Peter Chua</div>
-          <div class="officer-sector">Sector: MEZ I</div>
-          <div class="officer-divider"></div>
-          <div class="officer-company">President<br>Mepz Mixed Gases Corporation</div>
-        </div>
-        <div class="officer-c rv d1">
-          <div class="officer-avatar">KI</div>
-          <div class="officer-role">Board of Director</div>
-          <div class="officer-name">Koichi Iguchi</div>
-          <div class="officer-sector">Sector: MEZ I</div>
-          <div class="officer-divider"></div>
-          <div class="officer-company">President<br>Taiyo Yuden (Philippines) Inc.</div>
-        </div>
-        <div class="officer-c rv d2">
-          <div class="officer-avatar">AS</div>
-          <div class="officer-role">Board of Director</div>
-          <div class="officer-name">Anderson Santos</div>
-          <div class="officer-sector">Sector: MEZ I</div>
-          <div class="officer-divider"></div>
-          <div class="officer-company">Managing Director<br>TMX Philippines Inc.</div>
-        </div>
-        <div class="officer-c rv">
-          <div class="officer-avatar">TM</div>
-          <div class="officer-role">Board of Director</div>
-          <div class="officer-name">Tatsuya Mori</div>
-          <div class="officer-sector">Sector: Other Ecozones</div>
-          <div class="officer-divider"></div>
-          <div class="officer-company">President<br>Cebu Mitsumi, Inc.</div>
-        </div>
-        <div class="officer-c rv d1">
-          <div class="officer-avatar">RA</div>
-          <div class="officer-role">Board of Director</div>
-          <div class="officer-name">Roy Alcano</div>
-          <div class="officer-sector">Sector: MEZ I</div>
-          <div class="officer-divider"></div>
-          <div class="officer-company">General Manager<br>Autoliv Cebu Safety Manufacturing Inc.</div>
-        </div>
-        <div class="officer-c rv d2">
-          <div class="officer-avatar">JP</div>
-          <div class="officer-role">Board of Director</div>
-          <div class="officer-name">Jonathan Pasana</div>
-          <div class="officer-sector">Sector: MEZ II</div>
-          <div class="officer-divider"></div>
-          <div class="officer-company">Operations Director<br>Brady Philippines Services, Inc.</div>
-        </div>
-        <div class="officer-c rv">
-          <div class="officer-avatar">KI</div>
-          <div class="officer-role">Board of Director</div>
-          <div class="officer-name">Ken Iwakami</div>
-          <div class="officer-sector">Sector: MEZ I</div>
-          <div class="officer-divider"></div>
-          <div class="officer-company">President<br>Cebu Iwakami Corporation</div>
-        </div>
-        <div class="officer-c rv d1">
-          <div class="officer-avatar">DD</div>
-          <div class="officer-role">Board of Director</div>
-          <div class="officer-name">Darshan Denamany</div>
-          <div class="officer-sector">Sector: MEZ I</div>
-          <div class="officer-divider"></div>
-          <div class="officer-company">General Manager<br>On Semiconductor</div>
-        </div>
-        <div class="officer-c rv d2">
-          <div class="officer-avatar">YM</div>
-          <div class="officer-role">Board of Director</div>
-          <div class="officer-name">Yoichi Muramoto</div>
-          <div class="officer-sector">Sector: MEZ I</div>
-          <div class="officer-divider"></div>
-          <div class="officer-company">Chairman &amp; President<br>Muramoto Audio-Visual Philippines Inc.</div>
-        </div>
-        <div class="officer-c rv">
-          <div class="officer-avatar">NM</div>
-          <div class="officer-role">Board of Director</div>
-          <div class="officer-name">Norihiko Matsuda</div>
-          <div class="officer-sector">Sector: MEZ II</div>
-          <div class="officer-divider"></div>
-          <div class="officer-company">President<br>NKC Manufacturing Philippines Corp.</div>
-        </div>
+    <div class="si">
+      <div class="lbl rv" style="margin-bottom:44px">MEPZCEM Officers &amp; Board of Directors</div>
+      <div class="off-grid">
+        <div class="oc feat rv"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/lorena-baluran.jpg?resize=175%2C175&ssl=1" alt="Lorena Baluran" class="oc-photo"><div class="oc-role">President &amp; Board of Director</div><div class="oc-name">Lorena Baluran</div><div class="oc-sector">Sector: MEZ I</div><div class="oc-div"></div><div class="oc-co">Director, Philippine Operations (Plant Gabriella)<br><em>Lear Automotive Services (Netherlands) B.V.-PHL Branch</em></div></div>
+        <div class="oc rv d1"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2023/07/evan-gonzalez.jpg?resize=175%2C175&ssl=1" alt="Evan Gonzalez" class="oc-photo"><div class="oc-role">Vice President &amp; Board of Director</div><div class="oc-name">Evan Gonzalez</div><div class="oc-sector">Sector: Other Ecozones</div><div class="oc-div"></div><div class="oc-co">Global Engineering Manager / External Affairs Rep.<br><em>Teradyne Philippines Ltd.</em></div></div>
+        <div class="oc rv d2"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/07/dodon-montesclaros-jr.jpg?resize=175%2C175&ssl=1" alt="Porferio Montesclaros" class="oc-photo"><div class="oc-role">Secretary &amp; Board of Director</div><div class="oc-name">Porferio "Dodon" Montesclaros</div><div class="oc-sector">Sector: MEZ II</div><div class="oc-div"></div><div class="oc-co">General Manager<br><em>Hanazono Technologies</em></div></div>
+        <div class="oc rv"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/07/peter-chua-a.jpg?resize=175%2C175&ssl=1" alt="Peter Chua" class="oc-photo"><div class="oc-role">Treasurer &amp; Board of Director</div><div class="oc-name">Peter Chua</div><div class="oc-sector">Sector: MEZ I</div><div class="oc-div"></div><div class="oc-co">President<br><em>Mepz Mixed Gases Corporation</em></div></div>
+        <div class="oc rv d1"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/koichi-iguchi-a.jpg?resize=175%2C175&ssl=1" alt="Koichi Iguchi" class="oc-photo"><div class="oc-role">Board of Director</div><div class="oc-name">Koichi Iguchi</div><div class="oc-sector">Sector: MEZ I</div><div class="oc-div"></div><div class="oc-co">President<br><em>Taiyo Yuden (Philippines) Inc.</em></div></div>
+        <div class="oc rv d2"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2024/02/anderson-santos.jpg?resize=175%2C175&ssl=1" alt="Anderson Santos" class="oc-photo"><div class="oc-role">Board of Director</div><div class="oc-name">Anderson Santos</div><div class="oc-sector">Sector: MEZ I</div><div class="oc-div"></div><div class="oc-co">Managing Director<br><em>TMX Philippines Inc.</em></div></div>
+        <div class="oc rv"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2024/02/tatsuya-mori.jpg?resize=175%2C175&ssl=1" alt="Tatsuya Mori" class="oc-photo"><div class="oc-role">Board of Director</div><div class="oc-name">Tatsuya Mori</div><div class="oc-sector">Sector: Other Ecozones</div><div class="oc-div"></div><div class="oc-co">President<br><em>Cebu Mitsumi, Inc.</em></div></div>
+        <div class="oc rv d1"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/roy-alcano.jpg?resize=175%2C175&ssl=1" alt="Roy Alcano" class="oc-photo"><div class="oc-role">Board of Director</div><div class="oc-name">Roy Alcano</div><div class="oc-sector">Sector: MEZ I</div><div class="oc-div"></div><div class="oc-co">General Manager<br><em>Autoliv Cebu Safety Manufacturing Inc.</em></div></div>
+        <div class="oc rv d2"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2025/06/JPasana-e1749466987384.jpg?w=1200&ssl=1" alt="Jonathan Pasana" class="oc-photo"><div class="oc-role">Board of Director</div><div class="oc-name">Jonathan Pasana</div><div class="oc-sector">Sector: MEZ II</div><div class="oc-div"></div><div class="oc-co">Operations Director<br><em>Brady Philippines Services, Inc.</em></div></div>
+        <div class="oc rv"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/ken-iwakami.jpg?resize=175%2C175&ssl=1" alt="Ken Iwakami" class="oc-photo"><div class="oc-role">Board of Director</div><div class="oc-name">Ken Iwakami</div><div class="oc-sector">Sector: MEZ I</div><div class="oc-div"></div><div class="oc-co">President<br><em>Cebu Iwakami Corporation</em></div></div>
+        <div class="oc rv d1"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/10/darshan-abdullah.jpg?resize=175%2C175&ssl=1" alt="Darshan Denamany" class="oc-photo"><div class="oc-role">Board of Director</div><div class="oc-name">Darshan Denamany</div><div class="oc-sector">Sector: MEZ I</div><div class="oc-div"></div><div class="oc-co">General Manager<br><em>On Semiconductor</em></div></div>
+        <div class="oc rv d2"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/yoichi-muramoto.jpg?resize=175%2C175&ssl=1" alt="Yoichi Muramoto" class="oc-photo"><div class="oc-role">Board of Director</div><div class="oc-name">Yoichi Muramoto</div><div class="oc-sector">Sector: MEZ I</div><div class="oc-div"></div><div class="oc-co">Chairman &amp; President<br><em>Muramoto Audio-Visual Philippines Inc.</em></div></div>
+        <div class="oc rv"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/07/norihiko-matsuda.jpg?resize=175%2C175&ssl=1" alt="Norihiko Matsuda" class="oc-photo"><div class="oc-role">Board of Director</div><div class="oc-name">Norihiko Matsuda</div><div class="oc-sector">Sector: MEZ II</div><div class="oc-div"></div><div class="oc-co">President<br><em>NKC Manufacturing Philippines Corp.</em></div></div>
       </div>
     </div>
   </section>
 
-  <!-- Executive Director -->
-  <div class="officers-exec rv">
-    <div class="sec-lbl" style="justify-content:center;margin-bottom:48px">Executive Director</div>
-    <div class="exec-card">
-      <div class="exec-avatar">DS</div>
-      <div>
-        <div class="exec-role">Executive Director · All MEPZCEM</div>
-        <div class="exec-name">Delia Suplig</div>
-        <div class="exec-sub">Leading day-to-day chamber operations and member services across all economic zones.</div>
-      </div>
+  <div class="exec-strip rv">
+    <div class="exec-inner">
+      <img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/07/delia-suplig.jpg?resize=175%2C175&ssl=1" alt="Delia Suplig" class="exec-photo">
+      <div><div class="exec-role">Executive Director · All MEPZCEM</div><div class="exec-name">Delia Suplig</div><div class="exec-sub">Leading day-to-day chamber operations and member services across all economic zones.</div></div>
     </div>
   </div>
 
-  <footer>
-    <div class="footer-grid">
-      <div><div class="footer-brand-name">MEPZCEM</div><div class="footer-brand-tag">Chamber of Exporters &amp; Manufacturers</div><p class="footer-brand-desc">Serving the business community of the Mactan Export Processing Zone since 1984.</p></div>
-      <div><div class="footer-col-title">Navigate</div><ul class="footer-links"><li><a href="#" data-page="home">Home</a></li><li><a href="#" data-page="about">About Us</a></li><li><a href="#" data-page="associations">Associations</a></li><li><a href="#" data-page="events">Events</a></li><li><a href="#" data-page="contact">Contact</a></li></ul></div>
-      <div><div class="footer-col-title">Members</div><ul class="footer-links"><li><a href="#" data-page="contact">Member Login</a></li><li><a href="#" data-page="contact">Join MEPZCEM</a></li></ul></div>
-      <div><div class="footer-col-title">Contact</div><div class="footer-contact-item">Unit 2G, BF Mactan Strip 1, Lapu-Lapu City, Cebu 6015</div><div class="footer-contact-item"><a href="tel:+639173129146">+63 917 312 9146</a></div></div>
+  <!-- Association Officers Tabbed -->
+  <div class="ao-wrap">
+    <div class="ao-inner">
+      <div class="lbl rv" style="margin-bottom:6px">Association Officers</div>
+      <h2 class="h2 rv" style="margin-bottom:0">Leadership across all <em>associations</em></h2>
+      <div style="margin-top:48px" class="rv">
+        <div class="ao-tabs" id="aoTabs">
+          <div class="ao-tab active" data-tab="hra">MEPZ HRA</div>
+          <div class="ao-tab" data-tab="amca">AMCA</div>
+          <div class="ao-tab" data-tab="tra">MEPZ TRA</div>
+          <div class="ao-tab" data-tab="pma">MEPZ PMA</div>
+          <div class="ao-tab" data-tab="ssci">MEPZ SSCI</div>
+          <div class="ao-tab" data-tab="famea">MEPZ FAMEA</div>
+          <div class="ao-tab" data-tab="it">MEZ IT</div>
+        </div>
+        <div class="ao-panel active" id="tab-hra"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2023/01/2023-mepzhra-bod.jpg?resize=980%2C1024&ssl=1" alt="MEPZ HRA Officers"></div>
+        <div class="ao-panel" id="tab-amca"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2023/09/amca-officers.jpg?resize=1024%2C1536&ssl=1" alt="AMCA Officers"></div>
+        <div class="ao-panel" id="tab-tra"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2023/07/mepztra-officers.jpg?resize=1024%2C544&ssl=1" alt="MEPZ TRA Officers"></div>
+        <div class="ao-panel" id="tab-pma"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2023/04/pma-2022-23.png?resize=548%2C720&ssl=1" alt="MEPZ PMA Officers"></div>
+        <div class="ao-panel" id="tab-ssci"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2023/07/mepz-ssci-officers-2023.jpg?resize=882%2C959&ssl=1" alt="MEPZ SSCI Officers"></div>
+        <div class="ao-panel" id="tab-famea"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2023/07/mepz-famea-officers.jpg?resize=997%2C780&ssl=1" alt="MEPZ FAMEA Officers"></div>
+        <div class="ao-panel" id="tab-it"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2023/02/mez-it-org-chart-jan-2023.png?resize=1024%2C576&ssl=1" alt="MEZ IT Org Chart"></div>
+      </div>
     </div>
-    <div class="footer-bottom"><div class="footer-copy">© 2026 MEPZCEM Chamber Inc.</div><div class="footer-legal"><a href="#">Terms</a><a href="#">Privacy</a></div></div>
-  </footer>
+  </div>
+  <div style="padding-bottom:80px"></div>
+  <footer><div class="ft-g"><div><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/mepzcem-symetrical-transp-web.png?fit=932%2C260&ssl=1" alt="MEPZCEM" class="ft-logo"><div class="ft-tag">Chamber of Exporters &amp; Manufacturers</div><p class="ft-desc">Serving the business community of the Mactan Export Processing Zone since 1984.</p></div><div><div class="ft-ct">Navigate</div><ul class="ft-links"><li><a href="#" data-page="home">Home</a></li><li><a href="#" data-page="about">About Us</a></li><li><a href="#" data-page="associations">Associations</a></li><li><a href="#" data-page="events">Events</a></li><li><a href="#" data-page="contact">Contact</a></li></ul></div><div><div class="ft-ct">Members</div><ul class="ft-links"><li><a href="#" data-page="contact">Member Login</a></li><li><a href="#" data-page="contact">Join MEPZCEM</a></li></ul></div><div><div class="ft-ct">Contact</div><div class="ft-ci">Unit 2G, BF Mactan Strip 1, Lapu-Lapu City, Cebu 6015</div><div class="ft-ci"><a href="tel:+639173129146">+63 917 312 9146</a></div></div></div><div class="ft-bot"><div class="ft-copy">© 2026 MEPZCEM Chamber Inc.</div><div class="ft-legal"><a href="#">Terms</a><a href="#">Privacy</a></div></div></footer>
 </div>
 
-<!-- ============================================================ -->
-<!-- ASSOCIATIONS PAGE -->
-<!-- ============================================================ -->
+<!-- ====================================================
+     ASSOCIATIONS
+==================================================== -->
 <div class="page" id="page-associations">
-  <div class="page-hero">
-    <div class="page-hero-grid"></div>
-    <div class="page-hero-glow"></div>
-    <div class="page-hero-content">
-      <div class="page-hero-eye">Seven Member Groups</div>
-      <h1 class="page-hero-title">Our <em>Associations</em></h1>
-    </div>
+  <div class="pgh">
+    <div class="pgh-bg" style="background-image:url('https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/associations-bnr.jpg?resize=1200%2C756&ssl=1')"></div>
+    <div class="pgh-ov"></div><div class="pgh-grid"></div><div class="pgh-glow"></div>
+    <div class="pgh-content"><div class="pgh-eye">Seven Member Groups</div><h1 class="pgh-t">Our <em>Associations</em></h1></div>
   </div>
-
   <section class="sec">
-    <div class="sec-inner">
-      <div class="rv" style="max-width:680px;margin-bottom:72px">
-        <div class="sec-lbl">Umbrella Organization</div>
-        <h2 class="sec-title" style="margin-bottom:24px">Seven pillars of the <em>MEPZCEM</em> network</h2>
-        <p style="color:var(--white-dim);font-size:14px;line-height:2">MEPZCEM is the umbrella organization of seven specialized professional associations across the economic zones — each serving a distinct sector of our member companies' workforce and operations.</p>
+    <div class="si">
+      <div class="rv" style="max-width:660px;margin-bottom:60px">
+        <div class="lbl">Umbrella Organization</div>
+        <h2 class="h2" style="margin-bottom:20px">Seven pillars of the <em>MEPZCEM</em> network</h2>
+        <p style="color:var(--dim);font-size:14px;line-height:2">MEPZCEM is the umbrella organization of seven specialized professional associations — each serving a distinct sector of our member companies' workforce and operations.</p>
       </div>
-      <div class="assoc-full-grid rv">
-        <div class="assoc-full-c">
-          <div class="assoc-full-abbr">HRA</div>
-          <div class="assoc-full-name">MEPZ Human Resources Association</div>
-          <div class="assoc-full-body">The HRA brings together HR professionals from MEPZ member companies to share best practices, address workforce challenges, and spearhead industry events like the prestigious Pursuit of Excellence — a showcase of HR innovation and industry game changers. Active in sportsfest, inductions, and general membership meetings.</div>
-          <div class="assoc-full-tag">People &amp; Culture</div>
-        </div>
-        <div class="assoc-full-c">
-          <div class="assoc-full-abbr">PMA</div>
-          <div class="assoc-full-name">MEPZ Purchasing Management Association</div>
-          <div class="assoc-full-body">The PMA unites purchasing, facilities, and maintenance practitioners and contractors across the economic zones. It facilitates knowledge sharing, general membership meetings, and industry training to streamline supply chain operations and procurement excellence within the MEPZ community.</div>
-          <div class="assoc-full-tag">Procurement &amp; Supply Chain</div>
-        </div>
-        <div class="assoc-full-c">
-          <div class="assoc-full-abbr">TRA</div>
-          <div class="assoc-full-name">MEPZ Traffic Association</div>
-          <div class="assoc-full-body">The Traffic Association addresses the logistical and transportation needs of member companies and their workforce. Working closely with PEZA, bus companies, Lapu-Lapu City, and government agencies, TRA advocates for affordable, safe, and modern transport solutions for workers in the economic zone.</div>
-          <div class="assoc-full-tag">Transportation &amp; Logistics</div>
-        </div>
-        <div class="assoc-full-c">
-          <div class="assoc-full-abbr">SSCI</div>
-          <div class="assoc-full-name">MEZ Security &amp; Safety Council Inc.</div>
-          <div class="assoc-full-body">SSCI is dedicated to ensuring the safety and security of all personnel and facilities within the Mactan Economic Zones. The council coordinates with local authorities and member companies to implement best-in-class safety standards, emergency response training, and security protocols.</div>
-          <div class="assoc-full-tag">Safety &amp; Security</div>
-        </div>
-        <div class="assoc-full-c">
-          <div class="assoc-full-abbr">AMCA</div>
-          <div class="assoc-full-name">Association of MEPZ Controllers &amp; Accountants</div>
-          <div class="assoc-full-body">AMCA connects finance professionals — controllers, accountants, and financial managers — from across MEPZ. The association facilitates professional development, regulatory compliance discussions, and networking among financial stewards of the zone's member companies.</div>
-          <div class="assoc-full-tag">Finance &amp; Accounting</div>
-        </div>
-        <div class="assoc-full-c">
-          <div class="assoc-full-abbr">FAMEA</div>
-          <div class="assoc-full-name">MEZ Facilities, Maintenance &amp; Environmental Association</div>
-          <div class="assoc-full-body">FAMEA champions energy efficiency, environmental compliance, and facilities excellence. Active in RA 11285 energy conservation compliance, technical sharing sessions, and advocating for sustainable practices across all MEPZ locators — from MEZ 1 &amp; 2 to CLIP, SEZ, and PASAR.</div>
-          <div class="assoc-full-tag">Facilities &amp; Environment</div>
-        </div>
-        <div class="assoc-full-c" style="grid-column:span 2">
-          <div class="assoc-full-abbr">MEZ IT</div>
-          <div class="assoc-full-name">MEZ Information Technology Association</div>
-          <div class="assoc-full-body">The IT Association drives digital transformation and technology adoption across the economic zones. Supporting MEPZCEM's various automation projects, the association fosters collaboration among IT professionals, facilitates knowledge-sharing on emerging technologies, and helps member companies navigate the digital landscape. Co-hosted officer inductions with MEZ-HRA and leads efforts in IT governance and cybersecurity awareness.</div>
-          <div class="assoc-full-tag">Technology &amp; Innovation</div>
-        </div>
+      <div class="afc-grid rv">
+        <div class="afc"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/mepz-hra.png?resize=200%2C200&ssl=1" alt="MEPZ HRA" class="afc-logo"><div class="afc-abbr">HRA</div><div class="afc-name">MEPZ Human Resources Association</div><div class="afc-body">Brings together HR professionals to share best practices and address workforce challenges. Spearheads the Pursuit of Excellence — a flagship showcase of HR innovation. Active in sportsfest, inductions, and general membership meetings.</div><div class="afc-tag">People &amp; Culture</div></div>
+        <div class="afc"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/mez-pma.png?resize=200%2C200&ssl=1" alt="MEZ PMA" class="afc-logo"><div class="afc-abbr">PMA</div><div class="afc-name">MEPZ Purchasing Management Association</div><div class="afc-body">Unites purchasing, facilities, and maintenance practitioners across the economic zones. Facilitates knowledge sharing, meetings, and training to streamline supply chain operations and procurement excellence.</div><div class="afc-tag">Procurement &amp; Supply Chain</div></div>
+        <div class="afc"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/mepz-tra.png?resize=200%2C200&ssl=1" alt="MEPZ TRA" class="afc-logo"><div class="afc-abbr">TRA</div><div class="afc-name">MEPZ Traffic Association</div><div class="afc-body">Addresses logistical and transportation needs of member companies and their workforce. Works with PEZA, bus companies, and local government to advocate for affordable, safe, modern transport solutions.</div><div class="afc-tag">Transportation &amp; Logistics</div></div>
+        <div class="afc"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/mepz-ssci.png?resize=200%2C200&ssl=1" alt="MEZ SSCI" class="afc-logo"><div class="afc-abbr">SSCI</div><div class="afc-name">MEZ Security &amp; Safety Council Inc.</div><div class="afc-body">Ensures the safety and security of all personnel and facilities within the Mactan Economic Zones. Coordinates with authorities to implement best-in-class safety standards, emergency response training, and security protocols.</div><div class="afc-tag">Safety &amp; Security</div></div>
+        <div class="afc"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/amca.png?resize=200%2C200&ssl=1" alt="AMCA" class="afc-logo"><div class="afc-abbr">AMCA</div><div class="afc-name">Association of MEPZ Controllers &amp; Accountants</div><div class="afc-body">Connects finance professionals — controllers, accountants, and financial managers — from across MEPZ. Facilitates professional development, compliance discussions, and networking among financial stewards of member companies.</div><div class="afc-tag">Finance &amp; Accounting</div></div>
+        <div class="afc"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/mez-famea.png?resize=200%2C200&ssl=1" alt="MEZ FAMEA" class="afc-logo"><div class="afc-abbr">FAMEA</div><div class="afc-name">MEZ Facilities, Maintenance &amp; Environmental Assn.</div><div class="afc-body">Champions energy efficiency, environmental compliance, and facilities excellence. Active in RA 11285 energy conservation compliance and technical sharing sessions advocating for sustainable practices across all MEPZ locators.</div><div class="afc-tag">Facilities &amp; Environment</div></div>
+        <div class="afc" style="grid-column:span 2"><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/mez-it.png?resize=200%2C200&ssl=1" alt="MEZ IT" class="afc-logo"><div class="afc-abbr">MEZ IT</div><div class="afc-name">MEZ Information Technology Association</div><div class="afc-body">Drives digital transformation and technology adoption across the economic zones. Supports MEPZCEM's automation projects, fosters collaboration among IT professionals, and helps member companies navigate the digital landscape. Leads efforts in IT governance and cybersecurity awareness.</div><div class="afc-tag">Technology &amp; Innovation</div></div>
       </div>
     </div>
   </section>
-
-  <footer>
-    <div class="footer-grid">
-      <div><div class="footer-brand-name">MEPZCEM</div><div class="footer-brand-tag">Chamber of Exporters &amp; Manufacturers</div><p class="footer-brand-desc">Serving the business community of the Mactan Export Processing Zone since 1984.</p></div>
-      <div><div class="footer-col-title">Navigate</div><ul class="footer-links"><li><a href="#" data-page="home">Home</a></li><li><a href="#" data-page="about">About Us</a></li><li><a href="#" data-page="officers">Officers</a></li><li><a href="#" data-page="events">Events</a></li><li><a href="#" data-page="contact">Contact</a></li></ul></div>
-      <div><div class="footer-col-title">Members</div><ul class="footer-links"><li><a href="#" data-page="contact">Member Login</a></li><li><a href="#" data-page="contact">Join MEPZCEM</a></li></ul></div>
-      <div><div class="footer-col-title">Contact</div><div class="footer-contact-item">Unit 2G, BF Mactan Strip 1, Lapu-Lapu City, Cebu 6015</div><div class="footer-contact-item"><a href="tel:+639173129146">+63 917 312 9146</a></div></div>
-    </div>
-    <div class="footer-bottom"><div class="footer-copy">© 2026 MEPZCEM Chamber Inc.</div><div class="footer-legal"><a href="#">Terms</a><a href="#">Privacy</a></div></div>
-  </footer>
+  <footer><div class="ft-g"><div><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/mepzcem-symetrical-transp-web.png?fit=932%2C260&ssl=1" alt="MEPZCEM" class="ft-logo"><div class="ft-tag">Chamber of Exporters &amp; Manufacturers</div><p class="ft-desc">Serving the business community of the Mactan Export Processing Zone since 1984.</p></div><div><div class="ft-ct">Navigate</div><ul class="ft-links"><li><a href="#" data-page="home">Home</a></li><li><a href="#" data-page="about">About Us</a></li><li><a href="#" data-page="officers">Officers</a></li><li><a href="#" data-page="events">Events</a></li><li><a href="#" data-page="contact">Contact</a></li></ul></div><div><div class="ft-ct">Members</div><ul class="ft-links"><li><a href="#" data-page="contact">Member Login</a></li><li><a href="#" data-page="contact">Join MEPZCEM</a></li></ul></div><div><div class="ft-ct">Contact</div><div class="ft-ci">Unit 2G, BF Mactan Strip 1, Lapu-Lapu City, Cebu 6015</div><div class="ft-ci"><a href="tel:+639173129146">+63 917 312 9146</a></div></div></div><div class="ft-bot"><div class="ft-copy">© 2026 MEPZCEM Chamber Inc.</div><div class="ft-legal"><a href="#">Terms</a><a href="#">Privacy</a></div></div></footer>
 </div>
 
-<!-- ============================================================ -->
-<!-- EVENTS PAGE -->
-<!-- ============================================================ -->
+<!-- ====================================================
+     EVENTS
+==================================================== -->
 <div class="page" id="page-events">
-  <div class="page-hero">
-    <div class="page-hero-grid"></div>
-    <div class="page-hero-glow"></div>
-    <div class="page-hero-content">
-      <div class="page-hero-eye">Chamber Activities</div>
-      <h1 class="page-hero-title">News &amp; <em>Events</em></h1>
-    </div>
+  <div class="pgh">
+    <div class="pgh-bg" style="background-image:url('https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/events.jpg?resize=1200%2C723&ssl=1')"></div>
+    <div class="pgh-ov"></div><div class="pgh-grid"></div><div class="pgh-glow"></div>
+    <div class="pgh-content"><div class="pgh-eye">Chamber Activities</div><h1 class="pgh-t">News &amp; <em>Events</em></h1></div>
   </div>
-
   <section class="sec">
-    <div class="sec-inner">
-      <div class="sec-lbl rv" style="margin-bottom:56px">Latest Updates</div>
-      <div class="events-grid rv">
-        <div class="event-c">
-          <div class="event-date-block"><div class="event-month">Feb</div><div class="event-day">14</div><div class="event-year">2026</div></div>
-          <div style="width:1px;height:60px;background:var(--border-f);flex-shrink:0"></div>
-          <div class="event-body">
-            <div class="event-cat">Community · MEPZCEM</div>
-            <div class="event-title">Happy Valentine's Day, MEPZCEM Family!</div>
-            <div class="event-excerpt">Celebrating the season of love and gratitude with our members, partners, and the entire MEPZCEM community.</div>
-          </div>
-          <div class="event-arrow">→</div>
-        </div>
-        <div class="event-c">
-          <div class="event-date-block"><div class="event-month">Jan</div><div class="event-day">27</div><div class="event-year">2026</div></div>
-          <div style="width:1px;height:60px;background:var(--border-f);flex-shrink:0"></div>
-          <div class="event-body">
-            <div class="event-cat">Partnership · MEPZCEM</div>
-            <div class="event-title">Strengthening Partnerships: MEPZCEM Joins JCCICI General Assembly</div>
-            <div class="event-excerpt">MEPZCEM Chamber, Inc. was honored to participate in the General Assembly Meeting of the Japanese Chamber of Commerce and Industry in Cebu Inc., deepening Japan-Philippines business ties.</div>
-          </div>
-          <div class="event-arrow">→</div>
-        </div>
-        <div class="event-c">
-          <div class="event-date-block"><div class="event-month">Jan</div><div class="event-day">27</div><div class="event-year">2026</div></div>
-          <div style="width:1px;height:60px;background:var(--border-f);flex-shrink:0"></div>
-          <div class="event-body">
-            <div class="event-cat">Leadership · MEPZCEM</div>
-            <div class="event-title">MEPZCEM Officers Honor ZA Cortero, Welcome ZA Arnel Suyu</div>
-            <div class="event-excerpt">The officers of MEPZCEM Chamber, Inc. extend heartfelt gratitude to outgoing Mactan Economic Zone Administrator Architect Emmanuel "Loy" Cortero and welcome incoming ZA Arnel Suyu.</div>
-          </div>
-          <div class="event-arrow">→</div>
-        </div>
-        <div class="event-c">
-          <div class="event-date-block"><div class="event-month">Jan</div><div class="event-day">27</div><div class="event-year">2026</div></div>
-          <div style="width:1px;height:60px;background:var(--border-f);flex-shrink:0"></div>
-          <div class="event-body">
-            <div class="event-cat">Community · MEPZCEM</div>
-            <div class="event-title">MEPZCEM Chamber Leads Bayanihan Relief for Typhoon Tino Survivors</div>
-            <div class="event-excerpt">Standing firm in its mission of service and solidarity, MEPZCEM reached out to communities stricken by devastating floods brought by Typhoon Tino — providing essentials to affected families.</div>
-          </div>
-          <div class="event-arrow">→</div>
-        </div>
-        <div class="event-c">
-          <div class="event-date-block"><div class="event-month">Jan</div><div class="event-day">22</div><div class="event-year">2026</div></div>
-          <div style="width:1px;height:60px;background:var(--border-f);flex-shrink:0"></div>
-          <div class="event-body">
-            <div class="event-cat">Industry · Member Company</div>
-            <div class="event-title">Delfingen Philippines Marks 25 Years of Growth and Global Expansion</div>
-            <div class="event-excerpt">Delfingen Philippines marked its 25th Anniversary — a milestone highlighting its pioneering role as the company's first plant in Asia and its continued expansion from Cebu to the world.</div>
-          </div>
-          <div class="event-arrow">→</div>
-        </div>
-        <div class="event-c">
-          <div class="event-date-block"><div class="event-month">Oct</div><div class="event-day">14</div><div class="event-year">2025</div></div>
-          <div style="width:1px;height:60px;background:var(--border-f);flex-shrink:0"></div>
-          <div class="event-body">
-            <div class="event-cat">Community · Relief Operations</div>
-            <div class="event-title">MEPZCEM and Member Locators Bring Relief to Tabuelan Families</div>
-            <div class="event-excerpt">In partnership with AM Swiss Microtec, Exas Phils, Inc., and Matluster Corporation, MEPZCEM extended assistance to over 200 affected families in Tabuelan, Cebu Province.</div>
-          </div>
-          <div class="event-arrow">→</div>
-        </div>
-        <div class="event-c">
-          <div class="event-date-block"><div class="event-month">Sep</div><div class="event-day">11</div><div class="event-year">2025</div></div>
-          <div style="width:1px;height:60px;background:var(--border-f);flex-shrink:0"></div>
-          <div class="event-body">
-            <div class="event-cat">Sports · Annual Event</div>
-            <div class="event-title">MEPZCEM 17th Fun Run</div>
-            <div class="event-excerpt">The annual MEPZCEM Fun Run brings together members, employees, and their families for a day of fitness, camaraderie, and community spirit — one of the chamber's most beloved traditions.</div>
-          </div>
-          <div class="event-arrow">→</div>
-        </div>
-        <div class="event-c">
-          <div class="event-date-block"><div class="event-month">Apr</div><div class="event-day">25</div><div class="event-year">2024</div></div>
-          <div style="width:1px;height:60px;background:var(--border-f);flex-shrink:0"></div>
-          <div class="event-body">
-            <div class="event-cat">Trade · Workshop</div>
-            <div class="event-title">Korean Government Free Trade Agreement (FTA) Workshop</div>
-            <div class="event-excerpt">The Korean government through KTNET organized a workshop in Cebu on April 25–26, 2024, inviting MEPZCEM members to learn about FTA opportunities and trade facilitation tools.</div>
-          </div>
-          <div class="event-arrow">→</div>
-        </div>
+    <div class="si">
+      <div class="lbl rv" style="margin-bottom:48px">Latest Updates</div>
+      <div class="ev-list rv">
+        <div class="ev"><div class="ev-date"><div class="ev-mo">Feb</div><div class="ev-day">14</div><div class="ev-yr">2026</div></div><div class="ev-vl"></div><div class="ev-body"><div class="ev-cat">Community · MEPZCEM</div><div class="ev-title">Happy Valentine's Day, MEPZCEM Family!</div><div class="ev-ex">Celebrating the season of love and gratitude with our members, partners, and the entire MEPZCEM community across all economic zones.</div></div><div class="ev-arr">→</div></div>
+        <div class="ev"><div class="ev-date"><div class="ev-mo">Jan</div><div class="ev-day">27</div><div class="ev-yr">2026</div></div><div class="ev-vl"></div><div class="ev-body"><div class="ev-cat">Partnership · MEPZCEM</div><div class="ev-title">Strengthening Partnerships: MEPZCEM Joins JCCICI General Assembly</div><div class="ev-ex">MEPZCEM Chamber, Inc. participated in the General Assembly Meeting of the Japanese Chamber of Commerce and Industry in Cebu Inc., deepening Japan-Philippines business ties.</div></div><div class="ev-arr">→</div></div>
+        <div class="ev"><div class="ev-date"><div class="ev-mo">Jan</div><div class="ev-day">27</div><div class="ev-yr">2026</div></div><div class="ev-vl"></div><div class="ev-body"><div class="ev-cat">Leadership · MEPZCEM</div><div class="ev-title">Officers Honor ZA Cortero, Welcome ZA Arnel Suyu</div><div class="ev-ex">Heartfelt gratitude to outgoing MEZ Administrator Architect Emmanuel "Loy" Cortero, and warm welcome to incoming Zone Administrator Arnel Suyu.</div></div><div class="ev-arr">→</div></div>
+        <div class="ev"><div class="ev-date"><div class="ev-mo">Jan</div><div class="ev-day">27</div><div class="ev-yr">2026</div></div><div class="ev-vl"></div><div class="ev-body"><div class="ev-cat">Community · Bayanihan</div><div class="ev-title">MEPZCEM Leads Bayanihan Relief for Typhoon Tino Survivors</div><div class="ev-ex">Standing firm in its mission of service and solidarity, MEPZCEM reached out to communities stricken by flooding — providing essential relief to affected families.</div></div><div class="ev-arr">→</div></div>
+        <div class="ev"><div class="ev-date"><div class="ev-mo">Jan</div><div class="ev-day">22</div><div class="ev-yr">2026</div></div><div class="ev-vl"></div><div class="ev-body"><div class="ev-cat">Industry · Member Company</div><div class="ev-title">Delfingen Philippines Marks 25 Years of Growth and Global Expansion</div><div class="ev-ex">Delfingen Philippines marked its 25th Anniversary — pioneering as the company's first plant in Asia, celebrated last December 18, 2025.</div></div><div class="ev-arr">→</div></div>
+        <div class="ev"><div class="ev-date"><div class="ev-mo">Oct</div><div class="ev-day">16</div><div class="ev-yr">2025</div></div><div class="ev-vl"></div><div class="ev-body"><div class="ev-cat">Advisory · Utilities</div><div class="ev-title">Water Supply Advisory — Lapulapu Area</div><div class="ev-ex">Important water supply advisory for member companies and locators in the Lapulapu City area. Members advised to take necessary precautions.</div></div><div class="ev-arr">→</div></div>
+        <div class="ev"><div class="ev-date"><div class="ev-mo">Oct</div><div class="ev-day">14</div><div class="ev-yr">2025</div></div><div class="ev-vl"></div><div class="ev-body"><div class="ev-cat">Community · Relief</div><div class="ev-title">MEPZCEM and Member Locators Bring Relief to Tabuelan Families</div><div class="ev-ex">In partnership with AM Swiss Microtec, Exas Phils, and Matluster Corporation, MEPZCEM extended assistance to over 200 affected families in Tabuelan, Cebu.</div></div><div class="ev-arr">→</div></div>
+        <div class="ev"><div class="ev-date"><div class="ev-mo">Sep</div><div class="ev-day">11</div><div class="ev-yr">2025</div></div><div class="ev-vl"></div><div class="ev-body"><div class="ev-cat">Sports · Annual</div><div class="ev-title">MEPZCEM 17th Fun Run</div><div class="ev-ex">The annual MEPZCEM Fun Run brings together members, employees, and families for a day of fitness, camaraderie, and community spirit.</div></div><div class="ev-arr">→</div></div>
       </div>
     </div>
   </section>
-
-  <footer>
-    <div class="footer-grid">
-      <div><div class="footer-brand-name">MEPZCEM</div><div class="footer-brand-tag">Chamber of Exporters &amp; Manufacturers</div><p class="footer-brand-desc">Serving the business community of the Mactan Export Processing Zone since 1984.</p></div>
-      <div><div class="footer-col-title">Navigate</div><ul class="footer-links"><li><a href="#" data-page="home">Home</a></li><li><a href="#" data-page="about">About Us</a></li><li><a href="#" data-page="officers">Officers</a></li><li><a href="#" data-page="associations">Associations</a></li><li><a href="#" data-page="contact">Contact</a></li></ul></div>
-      <div><div class="footer-col-title">Members</div><ul class="footer-links"><li><a href="#" data-page="contact">Member Login</a></li><li><a href="#" data-page="contact">Join MEPZCEM</a></li></ul></div>
-      <div><div class="footer-col-title">Contact</div><div class="footer-contact-item">Unit 2G, BF Mactan Strip 1, Lapu-Lapu City, Cebu 6015</div><div class="footer-contact-item"><a href="tel:+639173129146">+63 917 312 9146</a></div></div>
-    </div>
-    <div class="footer-bottom"><div class="footer-copy">© 2026 MEPZCEM Chamber Inc.</div><div class="footer-legal"><a href="#">Terms</a><a href="#">Privacy</a></div></div>
-  </footer>
+  <footer><div class="ft-g"><div><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/mepzcem-symetrical-transp-web.png?fit=932%2C260&ssl=1" alt="MEPZCEM" class="ft-logo"><div class="ft-tag">Chamber of Exporters &amp; Manufacturers</div><p class="ft-desc">Serving the business community of the Mactan Export Processing Zone since 1984.</p></div><div><div class="ft-ct">Navigate</div><ul class="ft-links"><li><a href="#" data-page="home">Home</a></li><li><a href="#" data-page="about">About Us</a></li><li><a href="#" data-page="officers">Officers</a></li><li><a href="#" data-page="associations">Associations</a></li><li><a href="#" data-page="contact">Contact</a></li></ul></div><div><div class="ft-ct">Members</div><ul class="ft-links"><li><a href="#" data-page="contact">Member Login</a></li><li><a href="#" data-page="contact">Join MEPZCEM</a></li></ul></div><div><div class="ft-ct">Contact</div><div class="ft-ci">Unit 2G, BF Mactan Strip 1, Lapu-Lapu City, Cebu 6015</div><div class="ft-ci"><a href="tel:+639173129146">+63 917 312 9146</a></div></div></div><div class="ft-bot"><div class="ft-copy">© 2026 MEPZCEM Chamber Inc.</div><div class="ft-legal"><a href="#">Terms</a><a href="#">Privacy</a></div></div></footer>
 </div>
 
-<!-- ============================================================ -->
-<!-- CONTACT PAGE -->
-<!-- ============================================================ -->
+<!-- ====================================================
+     CONTACT
+==================================================== -->
 <div class="page" id="page-contact">
-  <div class="page-hero">
-    <div class="page-hero-grid"></div>
-    <div class="page-hero-glow"></div>
-    <div class="page-hero-content">
-      <div class="page-hero-eye">Get in Touch</div>
-      <h1 class="page-hero-title">Contact <em>Us</em></h1>
-    </div>
+  <div class="pgh" style="min-height:42vh">
+    <div class="pgh-bg" style="background-image:url('https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/mepzcem-symetrical-transp-web.png?fit=932%2C260&ssl=1');background-size:400px;background-repeat:no-repeat;background-position:center;background-color:var(--deep)"></div>
+    <div class="pgh-ov"></div><div class="pgh-grid"></div><div class="pgh-glow"></div>
+    <div class="pgh-content"><div class="pgh-eye">Get in Touch</div><h1 class="pgh-t">Contact <em>Us</em></h1></div>
   </div>
-
   <section class="sec">
-    <div class="sec-inner">
-      <div class="contact-grid">
+    <div class="si">
+      <div class="ct-grid">
         <div class="rv">
-          <div class="sec-lbl" style="margin-bottom:40px">Our Office</div>
-          <div class="contact-info-card">
-            <div class="contact-detail">
-              <div class="contact-detail-lbl">Address</div>
-              <div class="contact-detail-val">Unit 2G, BF Mactan Strip 1<br>M.L. Quezon Ave., Pajo<br>Lapu-Lapu City, Cebu<br>Philippines 6015</div>
-            </div>
-            <div class="contact-detail">
-              <div class="contact-detail-lbl">Phone</div>
-              <div class="contact-detail-val"><a href="tel:+639173129146">+63 917 312 9146</a><br><a href="tel:+639174251669">+63 917 425 1669</a></div>
-            </div>
-            <div class="contact-detail">
-              <div class="contact-detail-lbl">Office Hours</div>
-              <div class="contact-detail-val">Monday – Friday<br>8:00 AM – 5:00 PM</div>
-            </div>
-            <div class="contact-detail" style="margin-bottom:0">
-              <div class="contact-detail-lbl">Services</div>
-              <div class="contact-detail-val">Membership inquiries, advocacy assistance, events coordination, and member services.</div>
-            </div>
+          <div class="lbl" style="margin-bottom:36px">Our Office</div>
+          <div class="ct-card">
+            <div class="cd"><div class="cd-l">Address</div><div class="cd-v">Unit 2G, BF Mactan Strip 1<br>M.L. Quezon Ave., Pajo<br>Lapu-Lapu City, Cebu<br>Philippines 6015</div></div>
+            <div class="cd"><div class="cd-l">Phone</div><div class="cd-v"><a href="tel:+639173129146">+63 917 312 9146</a><br><a href="tel:+639174251669">+63 917 425 1669</a></div></div>
+            <div class="cd"><div class="cd-l">Office Hours</div><div class="cd-v">Monday – Friday<br>8:00 AM – 5:00 PM</div></div>
+            <div class="cd" style="margin-bottom:0"><div class="cd-l">Services</div><div class="cd-v">Membership inquiries, advocacy assistance, events coordination, and member services for all economic zone locators.</div></div>
+            <img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/mepzcem-symetrical-transp-web.png?fit=932%2C260&ssl=1" alt="MEPZCEM" class="ct-logo">
           </div>
         </div>
         <div class="rv d2">
-          <div class="sec-lbl" style="margin-bottom:40px">Send a Message</div>
-          <div class="contact-form-wrap">
-            <div class="form-row">
-              <div class="form-group"><label>First Name</label><input type="text" placeholder="Juan"></div>
-              <div class="form-group"><label>Last Name</label><input type="text" placeholder="dela Cruz"></div>
-            </div>
-            <div class="form-group"><label>Email Address</label><input type="email" placeholder="juan@company.com"></div>
-            <div class="form-group">
-              <label>Subject</label>
-              <select>
-                <option value="">Select inquiry type</option>
-                <option>General Inquiry</option>
-                <option>How to be a part of MEPZCEM</option>
-                <option>Membership Renewal</option>
-                <option>Event Information</option>
-                <option>Media &amp; Press</option>
-              </select>
-            </div>
-            <div class="form-group"><label>Message</label><textarea placeholder="Tell us how we can help..."></textarea></div>
-            <div class="form-submit">
-              <a href="#" class="btn-p"><span>Send Message</span></a>
-            </div>
+          <div class="lbl" style="margin-bottom:36px">Send a Message</div>
+          <div class="f2">
+            <div class="fg"><label>First Name</label><input type="text" placeholder="Juan"></div>
+            <div class="fg"><label>Last Name</label><input type="text" placeholder="dela Cruz"></div>
           </div>
+          <div class="fg"><label>Email Address</label><input type="email" placeholder="juan@company.com"></div>
+          <div class="fg"><label>Subject</label><select><option value="">Select inquiry type</option><option>General Inquiry</option><option>How to be a part of MEPZCEM</option><option>Membership Renewal</option><option>Event Information</option><option>Media &amp; Press</option></select></div>
+          <div class="fg"><label>Message</label><textarea placeholder="Tell us how we can help..."></textarea></div>
+          <a href="#" class="btn-p"><span>Send Message</span></a>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- Join Strip -->
-  <section class="cta-sec" style="padding:100px 64px">
-    <div class="cta-glow"></div>
-    <div class="cta-grid"></div>
+  <section class="cta" style="padding-top:80px;padding-bottom:100px">
+    <div class="cta-glow"></div><div class="cta-grid"></div>
     <div class="cta-body">
-      <div class="sec-lbl rv" style="justify-content:center;margin-bottom:28px">Membership</div>
-      <h2 class="cta-title rv" style="font-size:clamp(36px,5vw,70px)">Would you like to be <em>part of MEPZCEM?</em></h2>
-      <p class="cta-sub rv d1">Join over 157 companies powering Cebu's export manufacturing economy. Our chamber gives you the voice, network, and resources to grow.</p>
-      <div class="cta-row rv d2" style="justify-content:center">
-        <a href="mailto:info@mepzcem.com" class="btn-p"><span>Apply Today</span></a>
-      </div>
+      <div class="lbl rv" style="justify-content:center;margin-bottom:22px">Membership</div>
+      <h2 class="cta-t rv" style="font-size:clamp(32px,5vw,64px)">Would you like to be <em>part of MEPZCEM?</em></h2>
+      <p class="cta-s rv d1">Join over 157 companies powering Cebu's export manufacturing economy. Our chamber gives you the voice, network, and resources to grow.</p>
+      <div class="cta-row rv d2"><a href="mailto:info@mepzcem.com" class="btn-p"><span>Apply Today</span></a></div>
     </div>
   </section>
-
-  <footer>
-    <div class="footer-grid">
-      <div><div class="footer-brand-name">MEPZCEM</div><div class="footer-brand-tag">Chamber of Exporters &amp; Manufacturers</div><p class="footer-brand-desc">Serving the business community of the Mactan Export Processing Zone since 1984.</p></div>
-      <div><div class="footer-col-title">Navigate</div><ul class="footer-links"><li><a href="#" data-page="home">Home</a></li><li><a href="#" data-page="about">About Us</a></li><li><a href="#" data-page="officers">Officers</a></li><li><a href="#" data-page="associations">Associations</a></li><li><a href="#" data-page="events">Events</a></li></ul></div>
-      <div><div class="footer-col-title">Members</div><ul class="footer-links"><li><a href="#">Member Login</a></li><li><a href="#" data-page="contact">Join MEPZCEM</a></li></ul></div>
-      <div><div class="footer-col-title">Contact</div><div class="footer-contact-item">Unit 2G, BF Mactan Strip 1, Lapu-Lapu City, Cebu 6015</div><div class="footer-contact-item"><a href="tel:+639173129146">+63 917 312 9146</a></div></div>
-    </div>
-    <div class="footer-bottom"><div class="footer-copy">© 2026 MEPZCEM Chamber Inc.</div><div class="footer-legal"><a href="#">Terms</a><a href="#">Privacy</a></div></div>
-  </footer>
+  <footer><div class="ft-g"><div><img src="https://i0.wp.com/www.mepzcem.com/wp-content/uploads/2022/06/mepzcem-symetrical-transp-web.png?fit=932%2C260&ssl=1" alt="MEPZCEM" class="ft-logo"><div class="ft-tag">Chamber of Exporters &amp; Manufacturers</div><p class="ft-desc">Serving the business community of the Mactan Export Processing Zone since 1984.</p></div><div><div class="ft-ct">Navigate</div><ul class="ft-links"><li><a href="#" data-page="home">Home</a></li><li><a href="#" data-page="about">About Us</a></li><li><a href="#" data-page="officers">Officers</a></li><li><a href="#" data-page="associations">Associations</a></li><li><a href="#" data-page="events">Events</a></li></ul></div><div><div class="ft-ct">Members</div><ul class="ft-links"><li><a href="#">Member Login</a></li><li><a href="#" data-page="contact">Join MEPZCEM</a></li></ul></div><div><div class="ft-ct">Contact</div><div class="ft-ci">Unit 2G, BF Mactan Strip 1, Lapu-Lapu City, Cebu 6015</div><div class="ft-ci"><a href="tel:+639173129146">+63 917 312 9146</a></div></div></div><div class="ft-bot"><div class="ft-copy">© 2026 MEPZCEM Chamber Inc.</div><div class="ft-legal"><a href="#">Terms</a><a href="#">Privacy</a></div></div></footer>
 </div>
 
 <script>
-// ---- CUSTOM CURSOR ----
-const cur = document.getElementById('cur');
-const ring = document.getElementById('curRing');
+// CURSOR
+const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
-(function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing)})();
-function setCursorHover(els){els.forEach(el=>{el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2.5)';ring.style.transform='translate(-50%,-50%) scale(1.5)';ring.style.borderColor='rgba(201,168,76,.8)'});el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';ring.style.transform='translate(-50%,-50%) scale(1)';ring.style.borderColor='rgba(201,168,76,.45)'})})}
+(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
+function bindHov(){document.querySelectorAll('a,button,.sc,.nc,.oc,.afc,.p4,.pa,.ev,.vm-c,.al-c,.vid-wrap,.ao-tab').forEach(el=>{el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2.5)';ring.style.transform='translate(-50%,-50%) scale(1.5)';ring.style.borderColor='rgba(201,168,76,.8)'});el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';ring.style.transform='translate(-50%,-50%) scale(1)';ring.style.borderColor='rgba(201,168,76,.45)'})})}
+bindHov();
 
-// ---- NAV SCROLL ----
-const navbar=document.getElementById('navbar');
-window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',scrollY>60));
+// NAV
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60));
 
-// ---- HAMBURGER ----
-const hamburger=document.getElementById('hamburger');
-const mobileNav=document.getElementById('mobileNav');
-hamburger.addEventListener('click',()=>{mobileNav.classList.toggle('open');hamburger.querySelectorAll('span')[0].style.transform=mobileNav.classList.contains('open')?'rotate(45deg) translate(5px,5px)':'';hamburger.querySelectorAll('span')[1].style.opacity=mobileNav.classList.contains('open')?'0':'1';hamburger.querySelectorAll('span')[2].style.transform=mobileNav.classList.contains('open')?'rotate(-45deg) translate(5px,-5px)':''});
+// HAMBURGER
+const hbg=document.getElementById('hbg'),mob=document.getElementById('mobNav');
+hbg.addEventListener('click',()=>{mob.classList.toggle('open');const o=mob.classList.contains('open'),s=hbg.querySelectorAll('span');s[0].style.transform=o?'rotate(45deg) translate(5px,5px)':'';s[1].style.opacity=o?'0':'1';s[2].style.transform=o?'rotate(-45deg) translate(5px,-5px)':''});
 
-// ---- PAGE ROUTER ----
-function navigate(page){
+// ROUTER
+function navigate(pg){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  const target=document.getElementById('page-'+page);
-  if(target){
-    target.classList.add('active');
-    target.classList.remove('page-enter');
-    void target.offsetWidth;
-    target.classList.add('page-enter');
-    window.scrollTo({top:0,behavior:'instant'});
-    // update active nav link
-    document.querySelectorAll('#navLinks a').forEach(a=>{a.classList.toggle('active',a.dataset.page===page)});
-    // re-trigger reveals
-    setTimeout(()=>initReveals(),100);
-    // close mobile nav
-    mobileNav.classList.remove('open');
-  }
+  const t=document.getElementById('page-'+pg);
+  if(!t)return;
+  t.classList.add('active');t.classList.remove('page-enter');void t.offsetWidth;t.classList.add('page-enter');
+  window.scrollTo({top:0,behavior:'instant'});
+  document.querySelectorAll('#navLinks a').forEach(a=>a.classList.toggle('active',a.dataset.page===pg));
+  mob.classList.remove('open');hbg.querySelectorAll('span').forEach(s=>{s.style.transform='';s.style.opacity='1'});
+  setTimeout(initRev,80);
 }
+document.addEventListener('click',e=>{const l=e.target.closest('[data-page]');if(l){e.preventDefault();navigate(l.dataset.page)}});
 
-// Intercept all data-page links
-document.addEventListener('click',e=>{
-  const link=e.target.closest('[data-page]');
-  if(link){e.preventDefault();navigate(link.dataset.page)}
+// REVEALS
+function initRev(){
+  const obs=new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target)}})},{threshold:.08});
+  document.querySelectorAll('.page.active .rv:not(.vis)').forEach(el=>obs.observe(el));
+}
+initRev();
+
+// ASSOC TABS
+document.getElementById('aoTabs')?.addEventListener('click',e=>{
+  const tab=e.target.closest('.ao-tab');if(!tab)return;
+  const key=tab.dataset.tab;
+  document.querySelectorAll('.ao-tab').forEach(t=>t.classList.toggle('active',t===tab));
+  document.querySelectorAll('.ao-panel').forEach(p=>p.classList.toggle('active',p.id==='tab-'+key));
 });
-
-// ---- REVEAL ON SCROLL ----
-function initReveals(){
-  const reveals=document.querySelectorAll('.page.active .rv:not(.vis)');
-  const obs=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('vis');obs.unobserve(en.target)}})},{threshold:.1});
-  reveals.forEach(el=>obs.observe(el));
-}
-initReveals();
-
-// ---- CURSOR HOVER ----
-function bindHovers(){
-  setCursorHover(document.querySelectorAll('a,button,.stat-c,.news-c,.officer-c,.assoc-c,.assoc-full-c,.pillar,.pillar-a,.event-c,.vm-card'));
-}
-bindHovers();
-// Re-bind after navigation (they're always in DOM so one-time is fine)
 </script>
 </body>
 </html>
